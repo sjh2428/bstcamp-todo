@@ -1,0 +1,1 @@
+console.log("this is asset javascript for front-end");
