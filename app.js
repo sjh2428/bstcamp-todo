@@ -19,6 +19,8 @@ const app = express();
 app.use(helmet());
 dotenv.config();
 
+const sqlInit = require("./models/sql_init");
+
 // const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REMOTE_HOST);
 
 // view engine setup
@@ -51,6 +53,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // redisClient.on("error", (err) => console.log(err));
 
 app.use("/", indexRouter);
+
+sqlInit();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
