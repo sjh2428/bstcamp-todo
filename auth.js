@@ -5,7 +5,7 @@ module.exports = {
     },
     onlyPrivate(req, res, next) {
         if (req.user) next();
-        else res.redirect("/login");
+        else res.redirect("/");
     },
     onlyAdmin(req, res, next) {
         if (req.user && req.user.admin) next();

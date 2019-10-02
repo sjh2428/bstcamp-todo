@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
 const usersRouter = require("./users");
+const { onlyAdmin } = require("../../auth");
 
 // url: /admin
 
-router.get('/', (req, res) => {
+router.get('/', onlyAdmin, (req, res) => {
     res.render('admin/admin', {user: req.user});
 });
 

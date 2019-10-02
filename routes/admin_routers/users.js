@@ -1,26 +1,27 @@
 const express = require('express');
 const router = express.Router();
+const { onlyAdmin } = require("../../auth");
 
 // url: /admin/users
 
-router.post('/', (req, res) => {
+router.post('/', onlyAdmin, (req, res) => {
 
 });
 
-router.get('/', (req, res) => {
+router.get('/', onlyAdmin, (req, res) => {
     console.log("/admin/users get");
     res.redirect("/");
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', onlyAdmin, (req, res) => {
     
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', onlyAdmin, (req, res) => {
     
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', onlyAdmin, (req, res) => {
     
 });
 
