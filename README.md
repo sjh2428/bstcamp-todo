@@ -94,7 +94,7 @@
 ---
 
 ### Router
-#### Common API Router
+#### Common API Router `/api`
 | Resource     | POST        | GET               | PUT             | DELETE                   |
 |--------------|-------------|-------------------|-----------------|--------------------------|
 | `/columns`     | 새 column 추가 | columns JSON 리턴   | Error 404       | Error 404                |
@@ -108,7 +108,7 @@
 
 - `/cards` `POST`: multer + ncloud object storage
 
-#### Index Router
+#### Index Router `/`
 | Resource  | POST                                  | GET                                             |
 |-----------|---------------------------------------|-------------------------------------------------|
 | `/`         | Error 404                             | render index\.pug \(Login Page\)                |
@@ -119,7 +119,7 @@
 
 - `/todo/:id` `GET`: 해당 유저의 Todo에 들어가면 Todo cards가 존재하는데, 그 cards는 읽기 권한이 존재하는 유저에게만 보여야 함
 
-#### Admin Router
+#### Admin Router `/admin`
 | Resource     | POST        | GET               | PUT             | DELETE                   |
 |--------------|-------------|-------------------|-----------------|--------------------------|
 | `/`       | Erro 404   | render `admin.pug` (Admin Page)     | Error 404       | Error 404                |
