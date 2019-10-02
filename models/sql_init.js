@@ -5,8 +5,6 @@ dotenv.config();
 
 module.exports = async() => {
     console.log("database initializing");
-    await sqlQuery(`create database if not exists ${process.env.SQL_DB_NAME}`);
-    await sqlQuery(`use ${process.env.SQL_DB_NAME}`);
     await sqlQuery(`create table if not exists tbl_user(
         user_id varchar(20) PRIMARY KEY NOT NULL,
         user_pass varchar(20) NOT NULL,
@@ -17,7 +15,8 @@ module.exports = async() => {
         project_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
         project_name varchar(40) NOT NULL,
         project_idx int NOT NULL,
-        created_by varchar(20) FOREIGN KEY REFERENCES tbl_user (user_id)
+        created_by varchar(20),
+        FOREIGN KEY (created_by) REFERENCES tbl_user (user_id)
     );`);
     await sqlQuery(`create table if not exists tbl_column(
         column_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -25,7 +24,7 @@ module.exports = async() => {
         column_idx int NOT NULL,
         project_id int NOT NULL,
         created_by varchar(20) NOT NULL,
-        FOREIGN KEY (project_id) REFERENCES tbl_project (project_id)
+        FOREIGN KEY (project_id) REFERENCES tbl_project (project_id),
         FOREIGN KEY (created_by) REFERENCES tbl_user (user_id)
     );`);
     await sqlQuery(`create table if not exists tbl_card(
@@ -57,6 +56,10 @@ module.exports = async() => {
         action_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
         action_name varchar(20) NOT NULL
     );`);
+    await sqlQuery(`create table if not exists tbl_target(
+        target_id tinyint PRIMARY KEY NOT NULL,
+        target_name varchar(50) NOT NULL
+    );`);
     await sqlQuery(`create table if not exists tbl_log(
         log_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
         project_id int NOT NULL,
@@ -68,11 +71,8 @@ module.exports = async() => {
         log_describe varchar(255) NOT NULL,
         FOREIGN KEY (project_id) REFERENCES tbl_project (project_id),
         FOREIGN KEY (created_by) REFERENCES tbl_user (user_id),
-        FOREIGN KEY (action_id) REFERENCES tbl_action (action_id)
+        FOREIGN KEY (action_id) REFERENCES tbl_action (action_id),
+        FOREIGN KEY (target) REFERENCES tbl_target (target_id)
     );`);
-    await sqlQuery(`create table if not exists tbl_target(
-        target_id tinyint PRIMARY KEY NOT NULL FOREIGN KEY REFERENCES tbl_log (target),
-        target_name varchar(50) NOT NULL
-    )`);
     console.log("data init done");
 };
