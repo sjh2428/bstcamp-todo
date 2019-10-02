@@ -3,6 +3,8 @@
 ### Database
 ![ERD](https://kr.object.ncloudstorage.com/sjh-image-resource/erd_todo.png)
 
+**모든 FK에는 ON UPDATE CASCADE 적용**
+
 #### tbl_user
 | Field      | Type          | Options              |
 |------------|---------------|----------------------|
@@ -58,10 +60,10 @@
     - 0: `R`, 1: `R` `W`
 
 #### tbl_action
-| Field        | Type          | Options                              |
-|--------------|---------------|--------------------------------------|
-| action\_id   | int           | PRIMARY KEY NOT NULL AUTO\_INCREMENT |
-| action\_name | varchar\(20\) | NOT NULL                             |
+| Field        | Type          | Options              |
+|--------------|---------------|----------------------|
+| action\_id   | int           | PRIMARY KEY NOT NULL |
+| action\_name | varchar\(20\) | NOT NULL             |
 
 #### tbl_target
 | Field         | Type           | Options                |
