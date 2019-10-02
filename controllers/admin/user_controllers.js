@@ -15,7 +15,15 @@ module.exports = {
 
     },
     async idPutController(req, res) { // url: /admin/users/:id
-
+        const { params: { id }, body: {user_pass, user_name } } = req;
+        const sqlRes = await sqlQuery(`update tbl_user set user_pass='${user_pass}', user_name='${user_name}'
+                            where user_id='${id}'`);
+        if (sqlRes.changedRows) {
+            res.json({ result: true });
+            return;
+        }
+        res.json({ result: false });
+        res.end();
     },
     async idDelController(req, res) { // url: /admin/users/:id
         // id에 해당하는 유저의 정보를 삭제해야 하지만

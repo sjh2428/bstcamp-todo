@@ -1,4 +1,4 @@
-const sqlQuery = require("../../models/sql_query");
+const sqlQuery = require("../models/sql_query");
 
 module.exports = {
     indexGetController(req, res) { // url: /
