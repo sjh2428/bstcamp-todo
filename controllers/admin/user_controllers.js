@@ -14,13 +14,13 @@ module.exports = {
     async idGetController(req, res) { // url: /admin/users/:id
         const { id } = req.params;
         const [ getUserData ] = await sqlQuery(`select user_id, user_pass, user_name, admin from tbl_user
-                                                where user_id='${id}'`);
+                                                where user_id='${id}';`);
         res.json({ userData: getUserData });
     },
     async idPutController(req, res) { // url: /admin/users/:id
         const { params: { id }, body: {user_pass, user_name } } = req;
         const sqlRes = await sqlQuery(`update tbl_user set user_pass='${user_pass}', user_name='${user_name}'
-                            where user_id='${id}'`);
+                            where user_id='${id}';`);
         if (sqlRes.changedRows) {
             res.json({ result: true });
             return;
