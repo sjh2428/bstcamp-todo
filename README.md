@@ -98,7 +98,7 @@
 | Resource     | POST        | GET               | PUT             | DELETE                   |
 |--------------|-------------|-------------------|-----------------|--------------------------|
 | `/columns`     | 새 column 추가 | columns JSON 리턴   | Error 404       | Error 404                |
-| `/columns/:id` | Error 404   | id column JSON 리턴 | id column 정보 업뎃 | "id column, cards 정보 삭제" |
+| `/columns/:id` | Error 404   | id column JSON 리턴 | id column 정보 업뎃 | id column, cards 정보 삭제 |
 | `/cards`       | 새 card 추가   | cards JSON 리턴     | Error 404       | Error 404                |
 | `/cards/:id`   | Error 404   | id card JSON 리턴   | id card 정보 업뎃   | id card 정보 삭제            |
 | `/logs`        | 새 log 추가    | logs JSON 리턴      | Error 404       | Error 404                |

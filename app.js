@@ -12,12 +12,15 @@ const helmet = require("helmet");
 // const flash = require("connect-flash");
 
 const indexRouter = require("./routes/index");
-// const passportSetting = require("./passport");
+const adminRouter = require("./routes/admin_routers/index");
+const apiRouter = require("./routes/api_routers/index");
 
 const app = express();
 
 app.use(helmet());
 dotenv.config();
+
+// const passportSetting = require("./passport");
 
 const sqlInit = require("./models/sql_init");
 
@@ -53,6 +56,8 @@ app.use(express.static(path.join(__dirname, "public")));
 // redisClient.on("error", (err) => console.log(err));
 
 app.use("/", indexRouter);
+app.use("/admin", adminRouter);
+app.use("/api", apiRouter);
 
 sqlInit();
 
