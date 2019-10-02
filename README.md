@@ -3,7 +3,7 @@
 ### Database
 ![ERD](https://kr.object.ncloudstorage.com/sjh-image-resource/todo_erd.png)
 
-#### user
+#### tbl_user
 | Field      | Type          | Options              |
 |------------|---------------|----------------------|
 | user\_id   | varchar\(20\) | PRIMARY KEY NOT NULL |
@@ -11,64 +11,75 @@
 | user\_name | varchar\(20\) | NOT NULL             |
 | admin      | boolean       | DEFAULT FALSE        |
 
-#### clumn(column)
+#### tbl_column
 | Field        | Type          | Options                                  |
 |--------------|---------------|------------------------------------------|
 | column\_id   | int           | PRIMARY KEY NOT NULL AUTO\_INCREMENT     |
 | column\_name | varchar\(40\) | NOT NULL                                 |
 | column\_idx  | int           | NOT NULL                                 |
-| created\_by  | varchar\(20\) | FOREIGN KEY REFERENCES user \(user\_id\) |
+| created\_by  | varchar\(20\) | FOREIGN KEY REFERENCES tbl_user \(user\_id\) |
 
-#### card
+#### tbl_card
 | Field          | Type           | Options                                     |
 |----------------|----------------|---------------------------------------------|
 | card\_id       | int            | PRIMARY KEY NOT NULL AUTO\_INCREMENT        |
 | card\_title    | varchar\(100\) | NOT NULL                                    |
 | card\_contents | TEXT           | NOT NULL                                    |
 | card\_idx      | int            | NOT NULL                                    |
-| column\_id     | int            | FOREIGN KEY REFERENCES Clumn \(column\_id\) |
-| created\_by    | varchar\(20\)  | FOREIGN KEY REFERENCES User \(user\_id\)    |
+| column\_id     | int            | FOREIGN KEY REFERENCES tbl_column \(column\_id\) |
+| created\_by    | varchar\(20\)  | FOREIGN KEY REFERENCES tbl_user \(user\_id\)    |
 
-#### card_files
+#### tbl_card_files
 | Field            | Type           | Options                                  |
 |------------------|----------------|------------------------------------------|
-| card\_id         | int            | FOREIGN KEY REFERENCES Card \(card\_id\) |
+| card\_id         | int            | FOREIGN KEY REFERENCES tbl_card \(card\_id\) |
 | card\_file\_id   | int            | PRIMARY KEY NOT NULL AUTO\_INCREMENT     |
 | card\_file\_type | varchar\(255\) | NOT NULL                                 |
 | card\_file\_name | varchar\(255\) | NOT NULL                                 |
 
-#### auth
+#### tbl_auth
 | Field     | Type          | Options                                  |
 |-----------|---------------|------------------------------------------|
 | auth\_id  | int           | PRIMARY KEY NOT NULL AUTO\_INCREMENT     |
-| card\_id  | int           | FOREIGN KEY REFERENCES Card \(card\_id\) |
-| user\_id  | varchar\(20\) | FOREIGN KEY REFERENCES User \(user\_id\) |
+| card\_id  | int           | FOREIGN KEY REFERENCES tbl_card \(card\_id\) |
+| user\_id  | varchar\(20\) | FOREIGN KEY REFERENCES tbl_user \(user\_id\) |
 | authority | tinyint       | NOT NULL                                 |
 
 - authority
     - 0: `R`, 1: `R` `W`
 
-#### action
+#### tbl_action
 | Field        | Type          | Options                              |
 |--------------|---------------|--------------------------------------|
 | action\_id   | int           | PRIMARY KEY NOT NULL AUTO\_INCREMENT |
 | action\_name | varchar\(20\) | NOT NULL                             |
 
-#### log
+#### tbl_log
 | Field         | Type           | Options                                      |
 |---------------|----------------|----------------------------------------------|
 | log\_id       | int            | PRIMARY KEY NOT NULL AUTO\_INCREMENT         |
-| created\_by   | varchar\(20\)  | FOREIGN KEY REFERENCES User \(user\_id\)     |
+| created\_by   | varchar\(20\)  | FOREIGN KEY REFERENCES tbl_user \(user\_id\)     |
 | created\_time | timestamp      | DEFAULT CURRENT\_TIMESTAMP                   |
 | target        | tinyint        | NOT NULL                                     |
 | target\_id    | int            | NOT NULL                                     |
-| action\_id    | int            | FOREIGN KEY REFERENCES Action \(action\_id\) |
+| action\_id    | int            | FOREIGN KEY REFERENCES tbl_action \(action\_id\) |
 | log\_describe | varchar\(255\) | NOT NULL                                     |
 
 - target
     - 0: column, 1: card
 - target_id
-    - ID of target
+    - ID of column or ID of card
+
+#### tbl_target
+| Field         | Type           | Options                                      |
+|---------------|----------------|----------------------------------------------|
+| target\_id    | tinyint        | PRIMARY KEY NOT NULL FOREIGN KEY REFERENCES tbl_log \(target)   |
+| target\_name  | varchar\(50\)  | varchar(50) NOT NULL                         |
+
+- target_id
+    - 0: column, 1: card
+- target_name
+    - column, card
 
 ---
 
