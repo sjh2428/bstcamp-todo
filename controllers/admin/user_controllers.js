@@ -12,7 +12,10 @@ module.exports = {
         res.render("/admin/users", {user: req.user, userData: getUsersData});
     },
     async idGetController(req, res) { // url: /admin/users/:id
-
+        const { id } = req.params;
+        const [ getUserData ] = await sqlQuery(`select user_id, user_pass, user_name, admin from tbl_user
+                                                where user_id='${id}'`);
+        res.json({ userData: getUserData });
     },
     async idPutController(req, res) { // url: /admin/users/:id
         const { params: { id }, body: {user_pass, user_name } } = req;
