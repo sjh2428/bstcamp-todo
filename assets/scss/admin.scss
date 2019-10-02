@@ -1,0 +1,59 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.admin-menu {
+    margin: 0;
+}
+
+.admin-wrapper {
+    width: 60rem;
+    height: 40rem;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+.admin-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    border: 1px solid lightgrey;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+    padding: 1rem 2rem;
+}
+
+.admin-content::-webkit-scrollbar {
+    display: none;
+}
+
+.main-sign-up {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid lightgrey;
+    border-radius: 6px;
+    box-shadow: 0 1px 2px 0 rgba(34,36,38,.15);
+}
+
+.signup-form-wrapper {
+    width: 100%;
+    &:first-child {
+        width: 100%;
+    }
+}
+
+.ui.button {
+    width: 9rem;
+    margin: 0;
+}
+
+.field:last-child {
+    display: flex;
+    justify-content: space-between;
+}

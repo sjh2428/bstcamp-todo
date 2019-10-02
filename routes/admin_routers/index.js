@@ -5,8 +5,7 @@ const usersRouter = require("./users");
 // url: /admin
 
 router.get('/', (req, res) => {
-    console.log('this is admin get router');
-    res.redirect('/');
+    res.render('admin/admin', {user: req.user});
 });
 
 router.use("/users", usersRouter);

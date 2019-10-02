@@ -3,7 +3,8 @@ const path = require("path");
 module.exports = {
     // entry file
     entry: {
-        main: ["@babel/polyfill", "./assets/main.js"]
+        main: ["@babel/polyfill", "./assets/main.js"],
+        admin: ["./assets/admin.js"]
     },
     // compile + bundling된 js파일이 저장될 경로와 이름 지정
     output: {
