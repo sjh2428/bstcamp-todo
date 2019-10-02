@@ -124,7 +124,7 @@
 #### Admin Router `/admin`
 | Resource     | POST        | GET               | PUT             | DELETE                   |
 |--------------|-------------|-------------------|-----------------|--------------------------|
-| `/`       | Erro 404   | render `admin.pug` (Admin Page)     | Error 404       | Error 404                |
+| `/`       | Error 404   | render `admin.pug` (Admin Page)     | Error 404       | Error 404                |
 | `/users`       | 새 user 추가   | users JSON 리턴     | Error 404       | Error 404                |
 | `/users/:id`   | Error 404   | id user JSON 리턴   | id user 정보 업뎃   | id user 정보 삭제            |
 
