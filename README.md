@@ -63,6 +63,17 @@
 | action\_id   | int           | PRIMARY KEY NOT NULL AUTO\_INCREMENT |
 | action\_name | varchar\(20\) | NOT NULL                             |
 
+#### tbl_target
+| Field         | Type           | Options                |
+|---------------|----------------|------------------------|
+| target\_id    | tinyint        | PRIMARY KEY NOT NULL   |
+| target\_name  | varchar\(50\)  | varchar(50) NOT NULL   |
+
+- target_id
+    - 0: column, 1: card
+- target_name
+    - column, card
+
 #### tbl_log
 | Field         | Type           | Options                                      |
 |---------------|----------------|----------------------------------------------|
@@ -70,7 +81,7 @@
 | project\_id   | int            | FOREIGN KEY REFERENCES tbl_project \(project\_id\) |
 | created\_by   | varchar\(20\)  | FOREIGN KEY REFERENCES tbl_user \(user\_id\) |
 | created\_time | timestamp      | DEFAULT CURRENT\_TIMESTAMP                   |
-| target        | tinyint        | NOT NULL                                     |
+| target        | tinyint        | NOT NULL FOREIGN KEY REFERENCES tbl_target \(target\_id\) |
 | target\_id    | int            | NOT NULL                                     |
 | action\_id    | int            | FOREIGN KEY REFERENCES tbl_action \(action\_id\) |
 | log\_describe | varchar\(255\) | NOT NULL                                     |
@@ -79,17 +90,6 @@
     - 0: column, 1: card
 - target_id
     - ID of column or ID of card
-
-#### tbl_target
-| Field         | Type           | Options                                      |
-|---------------|----------------|----------------------------------------------|
-| target\_id    | tinyint        | PRIMARY KEY NOT NULL FOREIGN KEY REFERENCES tbl_log \(target)   |
-| target\_name  | varchar\(50\)  | varchar(50) NOT NULL                         |
-
-- target_id
-    - 0: column, 1: card
-- target_name
-    - column, card
 
 ---
 
