@@ -1,26 +1,14 @@
 const express = require('express');
 const router = express.Router();
+const { postController, getController, idGetController,
+    idPutController, idDelController } = require("../../controllers/api/project_controllers");
 
 // url: /api/projects
 
-router.post('/', (req, res) => {
-
-});
-
-router.get('/', (req, res) => {
-
-});
-
-router.get('/:id', (req, res) => {
-
-});
-
-router.put('/:id', (req, res) => {
-
-});
-
-router.delete('/:id', (req, res) => {
-
-});
+router.post('/', postController);
+router.get('/', getController);
+router.get('/:id', idGetController);
+router.put('/:id', idPutController);
+router.delete('/:id', idDelController);
 
 module.exports = router;
