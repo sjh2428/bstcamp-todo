@@ -29,7 +29,13 @@ module.exports = {
         res.end();
     },
     async idPutController(req, res) { // url: /api/cards/:id
-
+        const { card_title, card_contents, card_idx, column_id } = req.body;
+        const { id } = req.params;
+        const param = [ card_title, card_contents, card_idx, column_id, id ];
+        const sqlRes = await sqlQuery(`update tbl_card set card_title=?, card_contents=?, card_idx=?, column_id=? where card_id=?;`, param);
+        const statusCode = sqlRes.changedRows ? 200 : 500;
+        res.status(statusCode);
+        res.end();
     },
     async idDelController(req, res) { // url: /api/cards/:id
         
