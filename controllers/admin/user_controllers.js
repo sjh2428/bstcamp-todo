@@ -30,6 +30,11 @@ module.exports = {
         // id에 해당하는 유저의 정보를 삭제해야 하지만
         // 3개월 뒤에 삭제하도록 할 것임
         // 필드를 하나 더 두어서 탈퇴한 날짜를 기록해 둠
-        
+        const { id } = req.params;
+        const param = [ id ];
+        const sqlRes = await sqlQuery(`update tbl_user set exit_date=CURRENT_DATE() where user_id=?;`, param);
+        const statusCode = sqlRes.changedRows ? 200 : 500;
+        res.status(statusCode);
+        res.end();
     }
 };
