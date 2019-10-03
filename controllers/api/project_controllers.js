@@ -20,7 +20,8 @@ module.exports = {
         const { user_id } = req.user;
         const param = [ user_id ];
         const [ sqlRes ] = await sqlQuery(
-            `select project_id, project_name, project_idx, created_by from tbl_project where created_by=?`, param);
+            `select project_id, project_name, project_idx, created_by from tbl_project where created_by=?
+                order by project_idx asc`, param);
         const statusCode = sqlRes ? 200 : 500;
         if (statusCode === 200) res.json(sqlRes);
         res.status(statusCode);
