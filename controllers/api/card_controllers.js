@@ -22,7 +22,11 @@ module.exports = {
         res.end();
     },
     async idGetController(req, res) { // url: /api/cards/:id
-
+        const { id } = req.params;
+        const param = [ id ];
+        const sqlRes = await sqlQuery(`select * from tbl_card where card_id=?`, param);
+        res.json(sqlRes);
+        res.end();
     },
     async idPutController(req, res) { // url: /api/cards/:id
 
