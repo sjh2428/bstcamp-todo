@@ -42,15 +42,15 @@ module.exports = async() => {
         card_file_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
         card_file_type varchar(255) NOT NULL,
         card_file_name varchar(255) NOT NULL,
-        FOREIGN KEY (card_id) REFERENCES tbl_card (card_id) ON UPDATE CASCADE
+        FOREIGN KEY (card_id) REFERENCES tbl_card (card_id) ON UPDATE CASCADE ON DELETE CASCADE
     );`);
     await sqlQuery(`create table if not exists tbl_auth(
         auth_id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
         project_id int NOT NULL,
         user_id varchar(20) NOT NULL,
         authority tinyint NOT NULL,
-        FOREIGN KEY (project_id) REFERENCES tbl_project (project_id) ON UPDATE CASCADE,
-        FOREIGN KEY (user_id) REFERENCES tbl_user (user_id) ON UPDATE CASCADE
+        FOREIGN KEY (project_id) REFERENCES tbl_project (project_id) ON UPDATE CASCADE ON DELETE CASCADE,
+        FOREIGN KEY (user_id) REFERENCES tbl_user (user_id) ON UPDATE CASCADE ON DELETE CASCADE
     );`);
     await sqlQuery(`create table if not exists tbl_action(
         action_id int PRIMARY KEY NOT NULL,
