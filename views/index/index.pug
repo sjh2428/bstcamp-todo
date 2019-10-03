@@ -2,7 +2,7 @@ extends layout
 
 block content
     .login_wrapper
-        .ui.middle.aligned.center.aligned.grid
+        .ui.middle.aligned.center.grid
             .column
                 form.ui.large.form(method="post" action="/")
                     .ui.stacked.segment
@@ -14,9 +14,9 @@ block content
                                 input(type="password" name="user_pass" placeholder="Password")
                         input.ui.fluid.large.teal.submit.button(type="submit" value="Login")
                         if message
-                            .ui.error.message(style="display: block;")
+                            .ui.error.message.text-align-center(style="display: block;")
                                 | #{message}
-        .ui.message
+        .ui.message.text-align-center
             | New to us?
             a(href="/sign-up")   Sign Up
     link(rel="stylesheet" href="/semantic/semantic.min.css")

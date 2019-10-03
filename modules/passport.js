@@ -11,11 +11,11 @@ const passportSetting = (passport) => {
     });
     
     passport.use(new LocalStorage({
-            usernameField: "userid",
-            passwordField: "password"
+            usernameField: "user_id",
+            passwordField: "user_pass"
         },
         async(username, password, done) => {
-            const sqlResult = await sql(`select * from user where user_id='${username}' and user_pass='${password}'`);
+            const sqlResult = await sql(`select * from tbl_user where user_id='${username}' and user_pass='${password}'`);
             if (sqlResult.length) return done(null, sqlResult[0]);
             else return done(null, false, { message: "incorrect id or password" });
         }
