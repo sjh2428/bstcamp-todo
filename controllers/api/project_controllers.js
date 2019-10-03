@@ -23,6 +23,7 @@ module.exports = {
             `select project_id, project_name, project_idx, created_by from tbl_project where created_by=?`, param);
         const statusCode = sqlRes ? 200 : 500;
         if (statusCode === 200) res.json(sqlRes);
+        res.status(statusCode);
         res.end();
     },
     async idGetController(req, res) { // url: /api/projects/:id
@@ -32,6 +33,7 @@ module.exports = {
             `select project_id, project_name, project_idx, created_by from tbl_project where project_id=?`, param);
         const statusCode = sqlRes ? 200 : 500;
         if (statusCode === 200) res.json(sqlRes);
+        res.status(statusCode);
         res.end();
     },
     async idPutController(req, res) { // url: /api/projects/:id

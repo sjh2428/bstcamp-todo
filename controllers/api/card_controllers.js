@@ -30,21 +30,25 @@ module.exports = {
         const { user_id } = req.user;
         const param = [ user_id ];
         const sqlRes = await sqlQuery(`select * from tbl_card where created_by=?`, param);
-        res.json(sqlRes);
+        const statusCode = sqlRes ? 200 : 500;
+        if (statusCode === 200) res.json(sqlRes);
+        res.status(statusCode);
         res.end();
     },
     async idGetController(req, res) { // url: /api/cards/:id
         const { id } = req.params;
         const param = [ id ];
         const sqlRes = await sqlQuery(`select * from tbl_card where card_id=?`, param);
-        res.json(sqlRes);
+        const statusCode = sqlRes ? 200 : 500;
+        if (statusCode === 200) res.json(sqlRes);
+        res.status(statusCode);
         res.end();
     },
     async idPutController(req, res) { // url: /api/cards/:id
         const { body: { card_title, card_contents, card_idx, column_id }, params: { id } } = req;
         const param = [ card_title, card_contents, card_idx, column_id, id ];
         const [ sqlRes ] = await sqlQuery(`update tbl_card set card_title=?, card_contents=?, card_idx=?, column_id=? where card_id=?;`, param);
-        const statusCode = sqlRes.changedRows ? 204 : 500;
+        const statusCode = (sqlRes && sqlRes.changedRows) ? 204 : 500;
         res.status(statusCode);
         res.end();
     },
@@ -52,7 +56,7 @@ module.exports = {
         const { body: { column_id }, params: { id } } = req;
         const params = [ column_id, id ];
         const [ sqlRes ] = await sqlQuery(`delete from tbl_card where column_id=? and card_id=?`, params);
-        const statusCode = sqlRes.affectedRows ? 204 : 500;
+        const statusCode = (sqlRes && sqlRes.affectedRows) ? 204 : 500;
         res.status(statusCode);
         res.end();
     }
