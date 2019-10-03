@@ -5,10 +5,12 @@ const { onlyAdmin } = require("../../modules/auth");
 
 // url: /admin
 
-router.get('/', onlyAdmin, (req, res) => {
+router.use('*', onlyAdmin);
+
+router.get('/', (req, res) => {
     res.render('admin/admin', {user: req.user});
 });
 
-router.use("/users", onlyAdmin, usersRouter);
+router.use("/users", usersRouter);
 
 module.exports = router;
