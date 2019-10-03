@@ -4,12 +4,12 @@ const upload2ncloud = require("../../modules/upload2ncloud");
 module.exports = {
     async postController(req, res) { // url: /api/cards
         const { body: { card_title, card_contents, column_id }, user: { user_id } } = req;
-        const param = [ card_title, card_contents, 0, column_id, user_id ];
+        const params = [ card_title, card_contents, 0, column_id, user_id ];
         const sqlRes = await sqlQuery(`
             update tbl_card set card_idx = card_idx + 1;
             insert into tbl_card(card_title, card_contents, card_idx, column_id, created_by)
             values(?, ?, ?, ?, ?);
-        `, param);
+        `, params);
 
         for (const file of req.files) {
             const { originalname, buffer, mimetype } = file;
