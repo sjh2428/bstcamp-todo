@@ -22,7 +22,7 @@ module.exports = {
         const { params: { id }, body: { user_pass, user_name, admin } } = req;
         const params = [ user_pass, user_name, admin, id ];
         const sqlRes = await sqlQuery(`update tbl_user set user_pass=?, user_name=?, admin=? where user_id=?;`, params);
-        const statusCode = sqlRes.changedRows ? 200 : 500;
+        const statusCode = sqlRes.changedRows ? 204 : 500;
         res.status(statusCode);
         res.end();
     },
@@ -33,7 +33,7 @@ module.exports = {
         const { id } = req.params;
         const param = [ id ];
         const sqlRes = await sqlQuery(`update tbl_user set exit_date=CURRENT_DATE() where user_id=?;`, param);
-        const statusCode = sqlRes.changedRows ? 200 : 500;
+        const statusCode = sqlRes.changedRows ? 204 : 500;
         res.status(statusCode);
         res.end();
     }

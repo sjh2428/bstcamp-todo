@@ -11,8 +11,8 @@ module.exports = {
 
         const [ UPDATE, INSERT ] = [ 0, 1 ];
         let statusCode;
-        if (sqlRes[INSERT].insertId === 0) statusCode = 201;
-        else statusCode = (sqlRes[UPDATE].changedRows && sqlRes[INSERT].affectedRows) ? 201 : 500;
+        if (sqlRes[INSERT].insertId === 0) statusCode = 204;
+        else statusCode = (sqlRes[UPDATE].changedRows && sqlRes[INSERT].affectedRows) ? 204 : 500;
         res.status(statusCode);
         res.end();
     },
@@ -37,7 +37,7 @@ module.exports = {
         const params = [ project_name, project_idx, id ];
         const [ sqlRes ] = await sqlQuery(
             `update tbl_project set project_name=?, project_idx=? where project_id=?;`, params);
-        const statusCode = sqlRes.changedRows ? 200 : 500;
+        const statusCode = sqlRes.changedRows ? 204 : 500;
         res.status(statusCode);
         res.end();
     },
@@ -45,7 +45,7 @@ module.exports = {
         const { params: { id } } = req;
         const param = [ id ];
         const [ sqlRes ] = await sqlQuery(`delete from tbl_project where project_id=?`, param);
-        const statusCode = sqlRes.affectedRows ? 200 : 500;
+        const statusCode = sqlRes.affectedRows ? 204 : 500;
         res.status(statusCode);
         res.end();
     }

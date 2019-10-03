@@ -21,8 +21,8 @@ module.exports = {
 
         const [ UPDATE, INSERT ] = [ 0, 1 ];
         let statusCode;
-        if (sqlRes[INSERT].insertId === 0) statusCode = 201;
-        else statusCode = (sqlRes[UPDATE].changedRows && sqlRes[INSERT].affectedRows) ? 201 : 500;
+        if (sqlRes[INSERT].insertId === 0) statusCode = 204;
+        else statusCode = (sqlRes[UPDATE].changedRows && sqlRes[INSERT].affectedRows) ? 204 : 500;
         res.status(statusCode);
         res.end();
     },
@@ -44,7 +44,7 @@ module.exports = {
         const { body: { card_title, card_contents, card_idx, column_id }, params: { id } } = req;
         const param = [ card_title, card_contents, card_idx, column_id, id ];
         const [ sqlRes ] = await sqlQuery(`update tbl_card set card_title=?, card_contents=?, card_idx=?, column_id=? where card_id=?;`, param);
-        const statusCode = sqlRes.changedRows ? 200 : 500;
+        const statusCode = sqlRes.changedRows ? 204 : 500;
         res.status(statusCode);
         res.end();
     },
@@ -52,7 +52,7 @@ module.exports = {
         const { body: { column_id }, params: { id } } = req;
         const params = [ column_id, id ];
         const [ sqlRes ] = await sqlQuery(`delete from tbl_card where column_id=? and card_id=?`, params);
-        const statusCode = sqlRes.affectedRows ? 200 : 500;
+        const statusCode = sqlRes.affectedRows ? 204 : 500;
         res.status(statusCode);
         res.end();
     }
