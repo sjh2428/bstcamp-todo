@@ -13,6 +13,7 @@ block content
                             .ui.input
                                 input(type="password" name="user_pass" placeholder="Password")
                         input.ui.fluid.large.teal.submit.button(type="submit" value="Login")
+                        a.ui.fluid.large.black.submit.button(href="/auth/github") Github Login
                         if message
                             .ui.error.message.text-align-center(style="display: block;")
                                 | #{message}
