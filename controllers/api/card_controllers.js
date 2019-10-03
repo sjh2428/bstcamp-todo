@@ -47,7 +47,7 @@ module.exports = {
     async idPutController(req, res) { // url: /api/cards/:id
         const { body: { card_title, card_contents, card_idx, column_id }, params: { id } } = req;
         const params = [ card_title, card_contents, card_idx, column_id, id ];
-        const [ sqlRes ] = await sqlQuery(`update tbl_card set card_title=?, card_contents=?, card_idx=?, column_id=? where card_id=?;`, param);
+        const [ sqlRes ] = await sqlQuery(`update tbl_card set card_title=?, card_contents=?, card_idx=?, column_id=? where card_id=?;`, params);
         const statusCode = (sqlRes && sqlRes.changedRows) ? 204 : 500;
         res.status(statusCode);
         res.end();

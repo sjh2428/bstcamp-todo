@@ -8,7 +8,6 @@ module.exports = {
             update tbl_project set project_idx = project_idx + 1;
             insert into tbl_project(project_name, project_idx, created_by)
                 values(?, ?, ?)`, params);
-
         const [ UPDATE, INSERT ] = sqlRes;
         let statusCode;
         if (INSERT.insertId === 0) statusCode = 204;
