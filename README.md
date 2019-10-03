@@ -105,7 +105,6 @@
 | `/cards`       | 새 card 추가   | cards JSON 리턴     | Error 404       | Error 404                |
 | `/cards/:id`   | Error 404   | id card JSON 리턴   | id card 정보 업뎃   | id card 정보 삭제            |
 | `/logs`        | 새 log 추가    | logs JSON 리턴      | Error 404       | Error 404                |
-| `/logs/:id`    | Error 404   | project id 해당 log JSON 리턴    | id log 정보 업뎃    | id log 정보 삭제             |
 | `/projects`        | 새 project 추가    | projects JSON 리턴      | Error 404       | Error 404                |
 | `/projects/:id`    | Error 404   | id 해당 project JSON 리턴    | id project 정보 업뎃    | id project 정보 삭제             |
 
