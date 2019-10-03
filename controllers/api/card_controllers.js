@@ -19,10 +19,10 @@ module.exports = {
                                     values(?, ?, ?)`, params);
         }
 
-        const [ UPDATE, INSERT ] = [ 0, 1 ];
+        const [ UPDATE, INSERT ] = sqlRes;
         let statusCode;
-        if (sqlRes[INSERT].insertId === 0) statusCode = 204;
-        else statusCode = (sqlRes[UPDATE].changedRows && sqlRes[INSERT].affectedRows) ? 204 : 500;
+        if (INSERT.insertId === 0) statusCode = 204;
+        else statusCode = (UPDATE.changedRows && INSERT.affectedRows) ? 204 : 500;
         res.status(statusCode);
         res.end();
     },

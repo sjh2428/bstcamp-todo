@@ -9,10 +9,10 @@ module.exports = {
             insert into tbl_project(project_name, project_idx, created_by)
                 values(?, ?, ?)`, params);
 
-        const [ UPDATE, INSERT ] = [ 0, 1 ];
+        const [ UPDATE, INSERT ] = sqlRes;
         let statusCode;
-        if (sqlRes[INSERT].insertId === 0) statusCode = 204;
-        else statusCode = (sqlRes[UPDATE].changedRows && sqlRes[INSERT].affectedRows) ? 204 : 500;
+        if (INSERT.insertId === 0) statusCode = 204;
+        else statusCode = (UPDATE.changedRows && INSERT.affectedRows) ? 204 : 500;
         res.status(statusCode);
         res.end();
     },
@@ -21,7 +21,8 @@ module.exports = {
         const param = [ user_id ];
         const [ sqlRes ] = await sqlQuery(
             `select project_id, project_name, project_idx, created_by from tbl_project where created_by=?`, param);
-        res.json(sqlRes);
+        const statusCode = sqlRes ? 200 : 500;
+        if (statusCode === 200) res.json(sqlRes);
         res.end();
     },
     async idGetController(req, res) { // url: /api/projects/:id
@@ -29,7 +30,8 @@ module.exports = {
         const param = [ id ];
         const [ sqlRes ] = await sqlQuery(
             `select project_id, project_name, project_idx, created_by from tbl_project where project_id=?`, param);
-        res.json(sqlRes);
+        const statusCode = sqlRes ? 200 : 500;
+        if (statusCode === 200) res.json(sqlRes);
         res.end();
     },
     async idPutController(req, res) { // url: /api/projects/:id
@@ -37,7 +39,7 @@ module.exports = {
         const params = [ project_name, project_idx, id ];
         const [ sqlRes ] = await sqlQuery(
             `update tbl_project set project_name=?, project_idx=? where project_id=?;`, params);
-        const statusCode = sqlRes.changedRows ? 204 : 500;
+        const statusCode = (sqlRes && sqlRes.changedRows) ? 204 : 500;
         res.status(statusCode);
         res.end();
     },
@@ -45,7 +47,7 @@ module.exports = {
         const { params: { id } } = req;
         const param = [ id ];
         const [ sqlRes ] = await sqlQuery(`delete from tbl_project where project_id=?`, param);
-        const statusCode = sqlRes.affectedRows ? 204 : 500;
+        const statusCode = (sqlRes && sqlRes.affectedRows) ? 204 : 500;
         res.status(statusCode);
         res.end();
     }

@@ -33,7 +33,7 @@ module.exports = {
             `select authority from tbl_auth where user_id=? and project_id=?`, params);
         if (sqlRes.authority) next();
         else {
-            res.status(401);
+            res.status(403);
             res.end();
         }
     },
@@ -45,7 +45,7 @@ module.exports = {
             `select authority from tbl_auth where user_id=? and project_id=?`, params);
         if (sqlRes.authority === 2) next();
         else {
-            res.status(401);
+            res.status(403);
             res.end();
         }
     }
