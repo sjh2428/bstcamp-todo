@@ -5,10 +5,13 @@ const { postController, getController, idGetController,
 
 // url: /api/columns
 
-router.post('/', postController);
-router.get('/', getController);
-router.get('/:id', idGetController);
-router.put('/:id', idPutController);
-router.delete('/:id', idDelController);
+router.route('/')
+    .post(postController)
+    .get(getController);
+
+router.route('/:id')
+    .get(idGetController)
+    .put(idPutController)
+    .delete(idDelController);
 
 module.exports = router;
