@@ -11,6 +11,10 @@ const helmet = require("helmet");
 const passport = require("passport");
 const flash = require("connect-flash");
 
+const passportSetting = require("./passport");
+
+const sqlInit = require("./models/sql_init");
+
 const indexRouter = require("./routes/index");
 const adminRouter = require("./routes/admin_routers/index");
 const apiRouter = require("./routes/api_routers/index");
@@ -20,10 +24,8 @@ const app = express();
 app.use(helmet());
 dotenv.config();
 
-const passportSetting = require("./passport");
-
-const sqlInit = require("./models/sql_init");
-const redisClient = redis.createClient(process.env.REDIS_PORT, process.env.REMOTE_HOST);
+const { REDIS_PORT, REMOTE_HOST } = process.env;
+const redisClient = redis.createClient(REDIS_PORT, REMOTE_HOST);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

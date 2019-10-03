@@ -29,6 +29,7 @@ module.exports = {
     async idDelController(req, res) { // url: /admin/users/:id
         // id에 해당하는 유저의 정보를 삭제해야 하지만
         // 3개월 뒤에 삭제하도록 할 것임
-        // 테이블을 하나 더 두어서 탈퇴한 날짜와 아이디를 넣어두면 될듯
+        // 필드를 하나 더 두어서 탈퇴한 날짜를 기록해 둠
+        
     }
 };
