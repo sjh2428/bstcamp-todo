@@ -15,7 +15,11 @@ module.exports = {
         res.end();
     },
     async getController(req, res) { // url: /api/cards
-
+        const { user_id } = req.user;
+        const param = [ user_id ];
+        const sqlRes = await sqlQuery(`select * from tbl_card where created_by=?`, param);
+        res.json(sqlRes);
+        res.end();
     },
     async idGetController(req, res) { // url: /api/cards/:id
 
