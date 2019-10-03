@@ -1,5 +1,5 @@
 const LocalStorage = require("passport-local").Strategy;
-const sql = require("./models/sql_query");
+const sql = require("../models/sql_query");
 
 const passportSetting = (passport) => {
     passport.serializeUser((user, done) => {
