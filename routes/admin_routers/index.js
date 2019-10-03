@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const usersRouter = require("./users");
-const { onlyAdmin } = require("../config/auth");
+const { onlyAdmin } = require("../../modules/auth");
 
 // url: /admin
 

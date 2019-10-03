@@ -1,6 +1,6 @@
 module.exports = {
     onlyPublic(req, res, next) {
-        if (req.user) res.redirect("/");
+        if (req.user) res.redirect("/todo");
         else next();
     },
     onlyPrivate(req, res, next) {
