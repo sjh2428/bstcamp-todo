@@ -42,6 +42,11 @@ module.exports = {
         res.end();
     },
     async idDelController(req, res) { // url: /api/projects/:id
-        
+        const { params: { id } } = req;
+        const param = [ id ];
+        const [ sqlRes ] = await sqlQuery(`delete from tbl_project where project_id=?`, param);
+        const statusCode = sqlRes.affectedRows ? 200 : 500;
+        res.status(statusCode);
+        res.end();
     }
 };
