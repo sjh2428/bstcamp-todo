@@ -16,7 +16,7 @@ const passportSetting = (passport) => {
         },
         async(username, password, done) => {
             const sqlResult = await sql(`select * from user where user_id='${username}' and user_pass='${password}'`);
-            if (sqlResult.length > 0) return done(null, sqlResult[0]);
+            if (sqlResult.length) return done(null, sqlResult[0]);
             else return done(null, false, { message: "incorrect id or password" });
         }
     ));
