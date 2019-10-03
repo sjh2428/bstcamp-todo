@@ -1,4 +1,5 @@
 const sqlQuery = require("../../models/sql_query");
+const upload2ncloud = require("../../modules/upload2ncloud");
 
 module.exports = {
     async postController(req, res) { // url: /api/cards
@@ -9,6 +10,15 @@ module.exports = {
             insert into tbl_card(card_title, card_contents, card_idx, column_id, created_by)
             values(?, ?, ?, ?, ?);
         `, param);
+
+        for (const file of req.files) {
+            const { originalname, buffer, mimetype } = file;
+            const params = [ sqlRes[INSERT].insertId, mimetype, originalname ];
+            await upload2ncloud(originalname, buffer);
+            await sqlQuery(`insert into tbl_card_files(card_id, card_file_type, card_file_name)
+                                    values(?, ?, ?)`, params);
+        }
+
         const [ UPDATE, INSERT ] = [ 0, 1 ];
         const statusCode = (sqlRes[UPDATE].changedRows && sqlRes[INSERT].affectedRows) ? 201 : 500;
         res.status(statusCode);
