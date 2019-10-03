@@ -58,7 +58,7 @@
 | authority | tinyint       | NOT NULL                                 |
 
 - authority
-    - 0: `R`, 1: `R` `W`
+    - 0: `None`, 1: `R`, 2: `R` `W`
 
 #### tbl_action
 | Field        | Type          | Options              |
