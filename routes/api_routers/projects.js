@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { postController, getController, idGetController,
     idPutController, idDelController } = require("../../controllers/api/project_controllers");
-const { doYouHaveRAuth, doYouHaveRWAuth } = require("../../modules/auth");
+const { doYouHaveRAuth, doYouHaveRWAuth, isItYours } = require("../../modules/auth");
 
 // url: /api/projects
 
@@ -13,6 +13,6 @@ router.route('/')
 router.route('/:id')
     .get(doYouHaveRAuth, idGetController)
     .put(doYouHaveRWAuth, idPutController)
-    .delete(doYouHaveRWAuth, idDelController);
+    .delete(isItYours, idDelController);
 
 module.exports = router;
