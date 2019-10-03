@@ -4,3 +4,5 @@ const { todoGetController, todoIdGetController } = require("../../controllers/in
 
 router.get('/', todoGetController);
 router.get('/:id', todoIdGetController);
+
+module.exports = router;

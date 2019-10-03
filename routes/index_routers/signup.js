@@ -4,3 +4,5 @@ const { signUpGetController, signUpPostController } = require("../../controllers
 
 router.get('/', signUpGetController);
 router.post('/', signUpPostController);
+
+module.exports = router;

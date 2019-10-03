@@ -22,7 +22,7 @@ const query = async (sql, params = []) => {
         console.log(err);
         await connection.rollback();
         connection.release();
-        return throw err;
+        return false;
     }
 };
 
