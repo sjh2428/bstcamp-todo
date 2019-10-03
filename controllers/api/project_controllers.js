@@ -17,15 +17,20 @@ module.exports = {
         res.end();
     },
     async getController(req, res) { // url: /api/projects
+        const { user_id } = req.user;
+        const param = [ user_id ];
+        const [ sqlRes ] = await sqlQuery(
+            `select project_id, project_name, project_idx, created_by from tbl_project where created_by=?`, param);
+        res.json(sqlRes);
+        res.end();
+    },
+    async idGetController(req, res) { // url: /api/projects/:id
 
     },
-    async idGetController(req, res) { // url: /api/projects
+    async idPutController(req, res) { // url: /api/projects/:id
 
     },
-    async idPutController(req, res) { // url: /api/projects
-
-    },
-    async idDelController(req, res) { // url: /api/projects
+    async idDelController(req, res) { // url: /api/projects/:id
         
     }
 };
