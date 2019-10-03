@@ -1,7 +1,4 @@
-const dotenv = require("dotenv");
 const sqlQuery = require("./sql_query");
-const uuidv1 = require("uuid/v1");
-dotenv.config();
 
 module.exports = async() => {
     console.log("database initializing");

@@ -1,6 +1,4 @@
-const dotenv = require("dotenv");
 const mysql = require("mysql2/promise");
-dotenv.config();
 
 const pool = mysql.createPool({
     host: process.env.REMOTE_HOST,
@@ -23,7 +21,7 @@ const query = async (sql, params = []) => {
         console.log(err);
         await connection.rollback();
         connection.release();
-        return false;
+        return throw err;
     }
 };
 

@@ -6,7 +6,6 @@ const logger = require("morgan");
 const redis = require("redis");
 const session = require("express-session");
 const RedisStore = require("connect-redis")(session);
-const dotenv = require("dotenv");
 const helmet = require("helmet");
 const passport = require("passport");
 const flash = require("connect-flash");
@@ -20,7 +19,6 @@ const apiRouter = require("./routes/api_routers/index");
 const app = express();
 
 app.use(helmet());
-dotenv.config();
 
 const { REDIS_PORT, REMOTE_HOST } = process.env;
 const redisClient = redis.createClient(REDIS_PORT, REMOTE_HOST);

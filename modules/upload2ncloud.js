@@ -1,6 +1,3 @@
-const dotenv = require("dotenv");
-dotenv.config();
-
 const AWS = require('aws-sdk');
 const toStream = require('buffer-to-stream');
 const endpoint = new AWS.Endpoint(process.env.ENDPOINT);
