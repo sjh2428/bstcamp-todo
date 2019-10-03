@@ -1,13 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const { indexGetController, signInGetController, signUpPostController, 
+const { indexGetController, indexPostController, signUpGetController, signUpPostController,
     todoGetController, todoIdGetController } = require("../controllers/index_controllers");
 
 // url: /
 
 /* GET home page. */
 router.get('/', indexGetController);
-router.get('/sign-in', signInGetController);
+router.post('/', indexPostController);
+router.get('/sign-up', signUpGetController);
 router.post('/sign-up', signUpPostController);
 router.get('/todo', todoGetController);
 router.get('/todo/:id', todoIdGetController);

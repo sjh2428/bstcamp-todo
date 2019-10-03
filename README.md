@@ -114,9 +114,8 @@
 #### Index Router `/`
 | Resource  | POST                                  | GET                                             |
 |-----------|---------------------------------------|-------------------------------------------------|
-| `/`         | Error 404                             | render index\.pug \(Login Page\)                |
-| `/sign-in` | passport login - redirect `/todo` or `/` | redirect `/todo` or `/`                             |
-| `/sign-up` | Error 404                             | render sign\-up\.pug \(Sign Up Page\)           |
+| `/`         | passport login - redirect `/todo` or `/`  | render index\.pug \(Login Page\)           |
+| `/sign-up` | redirectSuccess: `/`, Fail: `/sign-up` | render sign\-up\.pug \(Sign Up Page\)           |
 | `/todo`     | Error 404                             | render todo\.pug \(Todo Page about login user\) |
 | `/todo/:id` | Error 404                             | render todo\.pug \(Todo Page about user id\)    |
 

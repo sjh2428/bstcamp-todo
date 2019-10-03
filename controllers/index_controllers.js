@@ -4,7 +4,10 @@ module.exports = {
     indexGetController(req, res) { // url: /
         res.render('index');
     },
-    signInGetController(req, res) { // url: /sign-in
+    indexPostController(req, res) { // url: /
+
+    },
+    signUpGetController(req, res) { // url: /sign-up
 
     },
     signUpPostController(req, res) { // url: /sign-up

@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    .ui.middle.aligned.center.aligned.grid
+        .column
+            form.ui.large.form(method="post" action="")
+                .ui.stacked.segment
+                    .field
+                        .ui.input
+                            input(type="text" name="user_id" placeholder="User ID")
+                    .field
+                        .ui.input
+                            input(type="password" name="user_pass" placeholder="Password")
+                    input.ui.fluid.large.teal.submit.button(type="submit" value="Login")
+                    if message
+                        .ui.error.message(style="display: block;")
+                            | #{message}
+    .ui.message
+        | New to us?
+        a(href="/sign-up") Sign Up
+    link(rel="stylesheet" href="/semantic/semantic.min.css")
+    script(src="/javascripts/index.bundle.js")
