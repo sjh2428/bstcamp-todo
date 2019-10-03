@@ -2,6 +2,7 @@ const LocalStorage = require("passport-local").Strategy;
 const sqlQuery = require("../models/sql_query");
 const Strategy = require('passport-github2').Strategy;
 const { OAUTH_GITHUB_ID, OAUTH_GITHUB_SECRET, OAUTH_GITHUB_CALLBACK } = process.env;
+const { insertUser, findUserById, findUserByIdPass } = require("../models/query_str");
 
 const passportSetting = (passport) => {
     passport.serializeUser((user, done) => {
@@ -23,9 +24,9 @@ const passportSetting = (passport) => {
             const name = profile.username;
             let userNo;
             try {
-                const params = { "INSERT": [ id, name, "git" ], "SELECT": [ id ] };
-                await sqlQuery(`insert into tbl_user(user_id, user_name, user_pass) values(?, ?, ?)`, params.INSERT);
-                [ userNo ] = await sqlQuery(`select * from tbl_user where user_id=?`, params.SELECT);
+                const params = { "INSERT": [ id, "git", name ], "SELECT": [ id ] };
+                await sqlQuery(insertUser, params.INSERT);
+                [ userNo ] = await sqlQuery(findUserById, params.SELECT);
             } catch (error) {
                 return done(error);
             }
@@ -39,7 +40,7 @@ const passportSetting = (passport) => {
         },
         async(username, password, done) => {
             const params = [ username, password ];
-            const sqlResult = await sqlQuery(`select * from tbl_user where user_id=? and user_pass=?`, params);
+            const sqlResult = await sqlQuery(findUserByIdPass, params);
             if (sqlResult.length) return done(null, sqlResult[0]);
             else return done(null, false, { message: "incorrect id or password" });
         }

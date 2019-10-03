@@ -2,34 +2,34 @@ extends admin_layout
 
 block content
     .admin-content
-        <table class="ui celled table">
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>User Name</th>
-                    <th>User Birth</th>
-                    <th>User Auth Manage</th>
-                </tr>
-            </thead>
-            <tbody>
-                if userData
-                    each user in userData
-                        <tr>
-                            <td data-label="User ID">#{user.user_id}</td>
-                            <td data-label="User Name">#{user.name}</td>
-                            <td data-label="User Birth">#{user.birth}</td>
-                            <td data-label="User Auth Manage">
-                                if user.admin
-                                    a(class="ui primary basic small button user-control-btn disabled")
-                                        |To Administrator
-                                    a(class="ui secondary basic small button user-control-btn", href="/admin/dealUser/" + user.user_id + "?to=0")
-                                        |To User
-                                else
-                                    a(class="ui primary basic small button user-control-btn", href="/admin/dealUser/" + user.user_id + "?to=1")
-                                        |To Administrator
-                                    a(class="ui secondary basic small button user-control-btn disabled")
-                                        |To User
-                            </td>
-                        </tr>
-            </tbody>
-        </table>
+        //<table class="ui celled table">
+        //    <thead>
+        //        <tr>
+        //            <th>User ID</th>
+        //            <th>User Name</th>
+        //            <th>User Birth</th>
+        //            <th>User Auth Manage</th>
+        //        </tr>
+        //    </thead>
+        //    <tbody>
+        //        if userData
+        //            each user in userData
+        //                <tr>
+        //                    <td data-label="User ID">#{user.user_id}</td>
+        //                    <td data-label="User Name">#{user.name}</td>
+        //                    <td data-label="User Birth">#{user.birth}</td>
+        //                    <td data-label="User Auth Manage">
+        //                        if user.admin
+        //                            a(class="ui primary basic small button user-control-btn disabled")
+        //                                |To Administrator
+        //                            a(class="ui secondary basic small button user-control-btn", href="/admin/dealUser/" + user.user_id + "?to=0")
+        //                                |To User
+        //                        else
+        //                            a(class="ui primary basic small button user-control-btn", href="/admin/dealUser/" + user.user_id + "?to=1")
+        //                                |To Administrator
+        //                            a(class="ui secondary basic small button user-control-btn disabled")
+        //                                |To User
+        //                    </td>
+        //                </tr>
+        //    </tbody>
+        //</table>
