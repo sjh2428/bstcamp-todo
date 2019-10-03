@@ -13,11 +13,24 @@ module.exports = {
         if (req.user && req.user.admin) next();
         else res.redirect("/");
     },
+    async isItYours(req, res, next) {
+        const { user_id } = req.user;
+        const { project_id } = req.body || req.query;
+        const param = [ project_id ];
+        const [ sqlRes ] = await sqlQuery(
+            `select created_by from tbl_project where project_id=?`, param);
+        if (sqlRes.created_by === user_id) next();
+        else {
+            res.status(401);
+            res.end();
+        }
+    },
     async doYouHaveRAuth(req, res, next) {
         const { user_id } = req.user;
         const { project_id } = req.body || req.query;
         const params = [ user_id, project_id ];
-        const [ sqlRes ] = await sqlQuery(`select authority from tbl_auth where user_id=? and project_id=?`, params);
+        const [ sqlRes ] = await sqlQuery(
+            `select authority from tbl_auth where user_id=? and project_id=?`, params);
         if (sqlRes.authority) next();
         else {
             res.status(401);
@@ -28,7 +41,8 @@ module.exports = {
         const { user_id } = req.user;
         const { project_id } = req.body || req.query;
         const params = [ user_id, project_id ];
-        const [ sqlRes ] = await sqlQuery(`select authority from tbl_auth where user_id=? and project_id=?`, params);
+        const [ sqlRes ] = await sqlQuery(
+            `select authority from tbl_auth where user_id=? and project_id=?`, params);
         if (sqlRes.authority === 2) next();
         else {
             res.status(401);
