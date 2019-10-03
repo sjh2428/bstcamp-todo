@@ -1,7 +1,7 @@
 # 멤버십 프로젝트 - 웹할일관리 저장소
 
 ### Database
-![ERD](https://kr.object.ncloudstorage.com/sjh-image-resource/erd_todo.png)
+![ERD](https://kr.object.ncloudstorage.com/sjh-image-resource/erd.png)
 
 **모든 FK에는 ON UPDATE CASCADE 적용**
 
@@ -12,6 +12,7 @@
 | user\_pass | varchar\(20\) | NOT NULL             |
 | user\_name | varchar\(20\) | NOT NULL             |
 | admin      | boolean       | DEFAULT FALSE        |
+| exit_date  | date          | DEFAULT NULL         |
 
 #### tbl_project
 | Field         | Type          | Options                                       |
