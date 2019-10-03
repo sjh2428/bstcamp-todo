@@ -9,6 +9,6 @@ router.get('/', onlyAdmin, (req, res) => {
     res.render('admin/admin', {user: req.user});
 });
 
-router.use("/users", usersRouter);
+router.use("/users", onlyAdmin, usersRouter);
 
 module.exports = router;

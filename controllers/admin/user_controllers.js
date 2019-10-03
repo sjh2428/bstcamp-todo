@@ -3,29 +3,27 @@ const sqlQuery = require("../../models/sql_query");
 module.exports = {
     async postController(req, res) { // url: /admin/users
         const { user_id, user_pass, user_name } = req.body;
-        await sqlQuery(`insert into tbl_user(user_id, user_pass, user_name)
-                                values('${user_id}', '${user_pass}', '${user_name}');`);
-        res.redirect("/admin/users", {user: req.user});
+        const params = [ user_id, user_pass, user_name ];
+        await sqlQuery(`insert into tbl_user(user_id, user_pass, user_name) values(?, ?, ?);`, params);
+        res.redirect("/admin/users", { user: req.user });
     },
     async getController(req, res) { // url: /admin/users
         const getUsersData = await sqlQuery(`select user_id, user_pass, user_name, admin from tbl_user;`);
-        res.render("/admin/users", {user: req.user, userData: getUsersData});
+        res.render("/admin/users", { user: req.user, userData: getUsersData });
     },
     async idGetController(req, res) { // url: /admin/users/:id
         const { id } = req.params;
-        const [ getUserData ] = await sqlQuery(`select user_id, user_pass, user_name, admin from tbl_user
-                                                where user_id='${id}';`);
-        res.json({ userData: getUserData });
+        const param = [ id ];
+        const [ userData ] = await sqlQuery(`select user_id, user_pass, user_name, admin from tbl_user
+                                                where user_id=?;`, param);
+        res.json({ userData });
     },
     async idPutController(req, res) { // url: /admin/users/:id
-        const { params: { id }, body: {user_pass, user_name } } = req;
-        const sqlRes = await sqlQuery(`update tbl_user set user_pass='${user_pass}', user_name='${user_name}'
-                            where user_id='${id}';`);
-        if (sqlRes.changedRows) {
-            res.json({ result: true });
-            return;
-        }
-        res.json({ result: false });
+        const { params: { id }, body: { user_pass, user_name, admin } } = req;
+        const params = [ user_pass, user_name, admin, id ];
+        const sqlRes = await sqlQuery(`update tbl_user set user_pass=?, user_name=?, admin=? where user_id=?;`, params);
+        const statusCode = sqlRes.changedRows ? 200 : 500;
+        res.status(statusCode);
         res.end();
     },
     async idDelController(req, res) { // url: /admin/users/:id

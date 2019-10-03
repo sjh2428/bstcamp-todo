@@ -10,11 +10,11 @@ const pool = mysql.createPool({
     multipleStatements: true
 });
 
-const query = async (sql) => {
+const query = async (sql, params = []) => {
     const connection = await pool.getConnection(async conn => conn);
     try {
         await connection.beginTransaction();
-        const [rows] = await connection.query(sql);
+        const [rows] = await connection.query(sql, params);
         await connection.commit();
         connection.release();
         return rows;
