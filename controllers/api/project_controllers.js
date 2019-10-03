@@ -33,7 +33,13 @@ module.exports = {
         res.end();
     },
     async idPutController(req, res) { // url: /api/projects/:id
-
+        const { body: { project_name, project_idx }, params: { id } } = req;
+        const params = [ project_name, project_idx, id ];
+        const [ sqlRes ] = await sqlQuery(
+            `update tbl_project set project_name=?, project_idx=? where project_id=?;`, params);
+        const statusCode = sqlRes.changedRows ? 200 : 500;
+        res.status(statusCode);
+        res.end();
     },
     async idDelController(req, res) { // url: /api/projects/:id
         

@@ -43,7 +43,7 @@ module.exports = {
     async idPutController(req, res) { // url: /api/cards/:id
         const { body: { card_title, card_contents, card_idx, column_id }, params: { id } } = req;
         const param = [ card_title, card_contents, card_idx, column_id, id ];
-        const sqlRes = await sqlQuery(`update tbl_card set card_title=?, card_contents=?, card_idx=?, column_id=? where card_id=?;`, param);
+        const [ sqlRes ] = await sqlQuery(`update tbl_card set card_title=?, card_contents=?, card_idx=?, column_id=? where card_id=?;`, param);
         const statusCode = sqlRes.changedRows ? 200 : 500;
         res.status(statusCode);
         res.end();
@@ -51,7 +51,7 @@ module.exports = {
     async idDelController(req, res) { // url: /api/cards/:id
         const { body: { column_id }, params: { id } } = req;
         const params = [ column_id, id ];
-        const sqlRes = await sqlQuery(`delete from tbl_card where column_id=? and card_id=?`, params);
+        const [ sqlRes ] = await sqlQuery(`delete from tbl_card where column_id=? and card_id=?`, params);
         const statusCode = sqlRes.affectedRows ? 200 : 500;
         res.status(statusCode);
         res.end();
