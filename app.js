@@ -12,7 +12,7 @@ const flash = require("connect-flash");
 
 const passportSetting = require("./modules/passport");
 
-const indexRouter = require("./routes/index");
+const indexRouter = require("./routes/index_routers");
 const adminRouter = require("./routes/admin_routers/index");
 const apiRouter = require("./routes/api_routers/index");
 

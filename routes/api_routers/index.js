@@ -8,9 +8,10 @@ const { onlyPrivate } = require("../../modules/auth");
 
 // url: /api
 
-router.use('/columns', onlyPrivate, columnsRouter);
-router.use('/cards', onlyPrivate, cardsRouter);
-router.use('/logs', onlyPrivate, logsRouter);
-router.use('/projects', onlyPrivate, projectsRouter);
+router.all('*', onlyPrivate);
+router.use('/columns', columnsRouter);
+router.use('/cards', cardsRouter);
+router.use('/logs',  logsRouter);
+router.use('/projects',  projectsRouter);
 
 module.exports = router;
