@@ -15,6 +15,21 @@ REDIS_PORT=
 REMOTE_HOST=
 ```
 
+### Install
+```bash
+$ npm install
+```
+
+### Build
+```bash
+$ npm run build
+```
+
+### Start
+```bash
+$ npm start
+```
+
 ### Database
 ![ERD](https://kr.object.ncloudstorage.com/sjh-image-resource/erd.png)
 
