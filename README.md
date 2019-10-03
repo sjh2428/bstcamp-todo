@@ -1,5 +1,20 @@
 # 멤버십 프로젝트 - 웹할일관리 저장소
 
+### ENV
+```
+ACCESS_KEY=
+SECRET_KEY=
+ENDPOINT=
+REGION=
+BUCKET_NAME=
+SQL_USER=
+SQL_PASS=
+SQL_DB_NAME=
+SQL_PORT=
+REDIS_PORT=
+REMOTE_HOST=
+```
+
 ### Database
 ![ERD](https://kr.object.ncloudstorage.com/sjh-image-resource/erd.png)
 
