@@ -13,8 +13,6 @@ const flash = require("connect-flash");
 
 const passportSetting = require("./passport");
 
-const sqlInit = require("./models/sql_init");
-
 const indexRouter = require("./routes/index");
 const adminRouter = require("./routes/admin_routers/index");
 const apiRouter = require("./routes/api_routers/index");
@@ -59,8 +57,6 @@ redisClient.on("error", (err) => console.log(err));
 app.use("/", indexRouter);
 app.use("/admin", adminRouter);
 app.use("/api", apiRouter);
-
-sqlInit();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
