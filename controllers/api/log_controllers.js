@@ -11,7 +11,15 @@ module.exports = {
         res.status(statusCode);
         res.end();
     },
-    async getController(req, res) { // url: /api/log
-
+    async getController(req, res) { // url: /api/logs
+        const { user_id } = req.user;
+        const param = [ user_id ];
+        const [ sqlRes ] = await sqlQuery(`
+            select project_id, created_by, created_time, target, target_id, action_id, log_describe
+            where created_by=?`, param);
+        const statusCode = sqlRes ? 200 : 500;
+        if (statusCode === 200) res.json(sqlRes);
+        res.status(statusCode);
+        res.end();
     }
 };
