@@ -53,7 +53,7 @@ module.exports = {
         res.end();
     },
     async idDelController(req, res) { // url: /api/cards/:id
-        const { params: { id } } = req;
+        const { id } = req.params;
         const param = [ id ];
         const [ sqlRes ] = await sqlQuery(`delete from tbl_card where card_id=?`, param);
         const statusCode = (sqlRes && sqlRes.affectedRows) ? 204 : 500;

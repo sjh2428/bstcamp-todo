@@ -40,6 +40,11 @@ module.exports = {
         res.end();
     },
     async idDelController(req, res) { // url: /api/columns/:id
-        
+        const { id } = req.params;
+        const param = [ id ];
+        const [ sqlRes ] = await sqlQuery(`delete from tbl_column where column_id=?`, param);
+        const statusCode = (sqlRes && sqlRes.affectedRows) ? 204 : 500;
+        res.status(statusCode);
+        res.end();
     }
 };
