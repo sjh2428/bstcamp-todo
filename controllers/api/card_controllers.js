@@ -20,7 +20,9 @@ module.exports = {
         }
 
         const [ UPDATE, INSERT ] = [ 0, 1 ];
-        const statusCode = (sqlRes[UPDATE].changedRows && sqlRes[INSERT].affectedRows) ? 201 : 500;
+        let statusCode;
+        if (sqlRes[INSERT].insertId === 0) statusCode = 201;
+        else statusCode = (sqlRes[UPDATE].changedRows && sqlRes[INSERT].affectedRows) ? 201 : 500;
         res.status(statusCode);
         res.end();
     },
