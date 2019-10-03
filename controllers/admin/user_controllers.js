@@ -2,9 +2,9 @@ const sqlQuery = require("../../models/sql_query");
 
 module.exports = {
     async postController(req, res) { // url: /admin/users
-        const { user_id, user_pass, user_name } = req.body;
-        const params = [ user_id, user_pass, user_name ];
-        await sqlQuery(`insert into tbl_user(user_id, user_pass, user_name) values(?, ?, ?);`, params);
+        const { user_id, user_pass, user_name, admin } = req.body;
+        const params = [ user_id, user_pass, user_name, admin ];
+        await sqlQuery(`insert into tbl_user(user_id, user_pass, user_name, admin) values(?, ?, ?, ?);`, params);
         res.redirect("/admin/users", { user: req.user });
     },
     async getController(req, res) { // url: /admin/users
