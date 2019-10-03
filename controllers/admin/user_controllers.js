@@ -5,7 +5,7 @@ module.exports = {
         const { user_id, user_pass, user_name, admin } = req.body;
         const params = [ user_id, user_pass, user_name, admin ];
         await sqlQuery(`insert into tbl_user(user_id, user_pass, user_name, admin) values(?, ?, ?, ?);`, params);
-        res.redirect("/admin/users", { user: req.user });
+        res.redirect("/admin/users");
     },
     async getController(req, res) { // url: /admin/users
         const getUsersData = await sqlQuery(`select user_id, user_pass, user_name, admin from tbl_user;`);
