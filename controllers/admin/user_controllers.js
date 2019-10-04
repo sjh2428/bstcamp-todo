@@ -6,26 +6,53 @@ module.exports = {
     async postController(req, res) { // url: /admin/users
         const { user_id, user_pass, user_name, admin } = req.body;
         const params = [ user_id, user_pass, user_name, admin ];
-        await sqlQuery(insertUserWithAdmin, params);
-        res.redirect("/admin/users");
+        try {
+            await sqlQuery(insertUserWithAdmin, params);
+        } catch(err) {
+            req.flash("fail_to_post_user", "유저를 등록하는데에 실패하였습니다!");
+        } finally {
+            res.redirect("/admin/users");
+        }
     },
     async getController(req, res) { // url: /admin/users
-        const getUsersData = await sqlQuery(findUserAll);
-        res.render("/admin/users", { user: req.user, userData: getUsersData });
+        let getUsersData;
+        const flashMsg = req.flash("fail_to_post_user");
+        try {
+            getUsersData = await sqlQuery(findUserAll);
+        } catch(err) {
+            getUsersData = [undefined];
+        } finally {
+            res.render("/admin/users", { user: req.user, userData: getUsersData, message: flashMsg.length ? flashMsg : undefined });
+        }
     },
     async idGetController(req, res) { // url: /admin/users/:id
         const { id } = req.params;
         const param = [ id ];
-        const [ userData ] = await sqlQuery(findUserById, param);
-        res.json({ userData });
+        let statusCode;
+        try {
+            const userData = await sqlQuery(findUserById, param);
+            statusCode = 200;
+            res.status(statusCode);
+            res.json(userData);
+        } catch(err) {
+            statusCode = 500;
+            res.status(statusCode);
+            res.end();
+        }
     },
     async idPutController(req, res) { // url: /admin/users/:id
         const { params: { id }, body: { user_pass, user_name, admin } } = req;
         const params = [ user_pass, user_name, admin, id ];
-        const [ sqlRes ] = await sqlQuery(updateUserById, params);
-        const statusCode = sqlRes.changedRows ? 204 : 500;
-        res.status(statusCode);
-        res.end();
+        let statusCode;
+        try {
+            await sqlQuery(updateUserById, params);
+            statusCode = 204;
+        } catch(err) {
+            statusCode = 500;
+        } finally {
+            res.status(statusCode);
+            res.end();
+        }
     },
     async idDelController(req, res) { // url: /admin/users/:id
         // id에 해당하는 유저의 정보를 삭제해야 하지만
@@ -33,9 +60,15 @@ module.exports = {
         // 필드를 하나 더 두어서 탈퇴한 날짜를 기록해 둠
         const { id } = req.params;
         const param = [ id ];
-        const [ sqlRes ] = await sqlQuery(setExitDateOfUser, param);
-        const statusCode = sqlRes.changedRows ? 204 : 500;
-        res.status(statusCode);
-        res.end();
+        let statusCode;
+        try {
+            await sqlQuery(setExitDateOfUser, param);
+            statusCode = 204;
+        } catch(err) {
+            statusCode = 500;
+        } finally {
+            res.status(statusCode);
+            res.end();
+        }
     }
 };
