@@ -106,7 +106,7 @@ $ npm start
 | target\_name  | varchar\(50\)  | varchar(50) NOT NULL   |
 
 - target_id
-    - 0: column, 1: card
+    - 0(column), 1(card)
 - target_name
     - column, card
 
@@ -134,12 +134,12 @@ $ npm start
 | Resource     | POST        | GET               | PUT             | DELETE                   |
 |--------------|-------------|-------------------|-----------------|--------------------------|
 | `/columns`     | 새 column 추가 | columns JSON 리턴   | Error 404       | Error 404                |
-| `/columns/:id` | Error 404   | id column JSON 리턴 | id column 정보 업뎃 | id column, cards 정보 삭제 |
+| `/columns/:id` | Error 404   | id에 해당하는 column JSON 리턴 | id에 해당하는 column 정보 업뎃 | id에 해당하는 column, cards 정보 삭제 |
 | `/cards`       | 새 card 추가   | cards JSON 리턴     | Error 404       | Error 404                |
-| `/cards/:id`   | Error 404   | id card JSON 리턴   | id card 정보 업뎃   | id card 정보 삭제            |
-| `/logs`        | 새 log 추가    | logs JSON 리턴      | Error 404       | Error 404                |
-| `/projects`        | 새 project 추가    | projects JSON 리턴      | Error 404       | Error 404                |
-| `/projects/:id`    | Error 404   | id 해당 project JSON 리턴    | id project 정보 업뎃    | id project 정보 삭제             |
+| `/cards/:id`   | Error 404   | id에 해당하는 card JSON 리턴   | id에 해당하는 card 정보 업뎃   | id에 해당하는 card 정보 삭제            |
+| `/logs`        | 새 log 추가    | logs of login user JSON 리턴      | Error 404       | Error 404                |
+| `/projects`        | 새 project 추가    | projects of login user JSON 리턴      | Error 404       | Error 404                |
+| `/projects/:id`    | Error 404   | id에 해당하는 project JSON 리턴    | id에 해당하는 project 정보 업뎃    | id에 해당하는 project 정보 삭제             |
 
 - `/cards` `POST`: multer + ncloud object storage
 
@@ -158,6 +158,6 @@ $ npm start
 |--------------|-------------|-------------------|-----------------|--------------------------|
 | `/`       | Error 404   | render `admin.pug` (Admin Page)     | Error 404       | Error 404                |
 | `/users`       | 새 user 추가   | users JSON 리턴     | Error 404       | Error 404                |
-| `/users/:id`   | Error 404   | id user JSON 리턴   | id user 정보 업뎃   | id user 정보 삭제            |
+| `/users/:id`   | Error 404   | id에 해당하는 user JSON 리턴   | id에 해당하는 user 정보 업뎃   | id에 해당하는 user 정보 삭제            |
 
-- `/users/:id` `DELETE`: user 삭제시 해당 user의 모든 데이터 삭제해야 함
+- `/users/:id` `DELETE`: user 삭제 요청시 어뷰징 추적을 위해 몇 개월, 몇 년간 정보를 저장하여야 함
