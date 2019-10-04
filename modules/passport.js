@@ -2,7 +2,7 @@ const LocalStorage = require("passport-local").Strategy;
 const sqlQuery = require("../models/sql_query");
 const Strategy = require('passport-github2').Strategy;
 const { OAUTH_GITHUB_ID, OAUTH_GITHUB_SECRET, OAUTH_GITHUB_CALLBACK } = process.env;
-const { insertUser, findUserById, findUserByIdPass } = require("../models/query_str");
+const { findUserCntById, insertUser, findUserById, findUserByIdPass } = require("../models/query_str");
 
 const passportSetting = (passport) => {
     passport.serializeUser((user, done) => {
@@ -25,7 +25,8 @@ const passportSetting = (passport) => {
             let userNo;
             try {
                 const params = { "INSERT": [ id, "git", name ], "SELECT": [ id ] };
-                await sqlQuery(insertUser, params.INSERT);
+                const [ cntQry ] = await sqlQuery(findUserCntById, params.SELECT);
+                if (cntQry.cnt === 0) await sqlQuery(insertUser, params.INSERT);
                 [ userNo ] = await sqlQuery(findUserById, params.SELECT);
             } catch (error) {
                 return done(error);

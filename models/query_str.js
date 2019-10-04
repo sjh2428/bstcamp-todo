@@ -3,6 +3,7 @@ module.exports = {
     insertUserWithAdmin: "insert into tbl_user(user_id, user_pass, user_name, admin) values(?, ?, ?, ?);",
     findUserAll: "select user_id, user_pass, user_name, admin, exit_date from tbl_user;",
     findUserById: "select user_id, user_pass, user_name, admin, exit_date from tbl_user where user_id=?;",
+    findUserCntById: "select count(user_id) as cnt from tbl_user where user_id=?",
     findUserByIdPass: "select user_id, user_pass, user_name, admin, exit_date from tbl_user where user_id=? and user_pass=?;",
     updateUserById: "update tbl_user set user_pass=?, user_name=?, admin=? where user_id=?;",
     setExitDateOfUser: "update tbl_user set exit_date=CURRENT_DATE() where user_id=?;",
