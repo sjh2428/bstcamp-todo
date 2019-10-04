@@ -25,3 +25,11 @@ header {
         margin: $header-font-margin;
     }
 }
+
+.right {
+    & > a {
+        text-decoration: none;
+        color: white;
+        font-size: $header-font-size * 0.7;
+    }
+}

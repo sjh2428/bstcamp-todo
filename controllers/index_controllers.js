@@ -5,6 +5,12 @@ module.exports = {
         const flashMsg = req.flash().error;
         res.render('index', { message: flashMsg ? flashMsg : undefined });
     },
+    logoutController(req, res) {
+        req.logout();
+        req.session.destroy((err) => {
+            res.redirect("/");
+        });
+    },
     signUpGetController(req, res) { // url: /sign-up
 
     },
