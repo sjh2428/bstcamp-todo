@@ -3,7 +3,7 @@ const sqlQuery = require("../models/sql_query");
 module.exports = {
     indexGetController(req, res) { // url: /
         const flashMsg = req.flash().error;
-        res.render('index', { message: flashMsg ? flashMsg : undefined });
+        res.render('index', { message: flashMsg || undefined });
     },
     logoutController(req, res) {
         req.logout();
@@ -12,7 +12,8 @@ module.exports = {
         });
     },
     signUpGetController(req, res) { // url: /sign-up
-
+        const flashMsg = req.flash('fail_to_sign_up');
+        res.render('index/sign_up', { message: flashMsg || undefined });
     },
     signUpPostController(req, res) { // url: /sign-up
 
