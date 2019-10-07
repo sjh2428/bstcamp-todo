@@ -17,10 +17,12 @@ module.exports = {
                 await upload2ncloud(originalname, buffer);
                 await sqlQuery(insertCardFile, params);
             }
-            statusCode = 204;
+            const param = [ sqlRes.insertId ];
+            const resObj = await sqlQuery(findCardById, param);
+            statusCode = 201;
+            res.status(statusCode).res.json(resObj);
         } catch(err) {
             statusCode = 500;
-        } finally {
             res.status(statusCode);
             res.end();
         }
