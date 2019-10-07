@@ -93,6 +93,7 @@ module.exports = {
     deleteColumnById: "delete from tbl_column where column_id=?;",
 
     insertLog: "insert into tbl_log(project_id, created_by, target, target_id, action_id, log_describe) values(?, ?, ?, ?, ?, ?);",
+    findLogById: "select log_id, project_id, created_by, created_time, target, target_id, action_id, log_describe where log_id=?",
     findLogsByUserId: "select project_id, created_by, created_time, target, target_id, action_id, log_describe where created_by=?;",
 
     incProjectIdx: "update tbl_project set project_idx = project_idx + 1;",
