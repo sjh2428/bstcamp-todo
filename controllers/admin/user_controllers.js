@@ -22,7 +22,7 @@ module.exports = {
         } catch(err) {
             getUsersData = [undefined];
         } finally {
-            res.render("/admin/users", { user: req.user, userData: getUsersData, message: flashMsg.length ? flashMsg : undefined });
+            res.render("/admin/users", { user: req.user, userData: getUsersData, message: flashMsg || undefined });
         }
     },
     async idGetController(req, res) { // url: /admin/users/:id
