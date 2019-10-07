@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { postController, getController, idGetController,
     idPutController, idDelController } = require("../../controllers/api/column_controllers");
-const { doYouHaveRAuth, doYouHaveRWAuth } = require("../../modules/auth");
+const { doYouHaveRAuth, doYouHaveRWAuth } = require("../../middleware/auth");
 
 // url: /api/columns
 

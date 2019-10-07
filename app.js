@@ -10,7 +10,7 @@ const helmet = require("helmet");
 const passport = require("passport");
 const flash = require("connect-flash");
 
-const passportSetting = require("./modules/passport");
+const passportSetting = require("./middleware/passport");
 
 const indexRouter = require("./routes/index_routers");
 const adminRouter = require("./routes/admin_routers/index");

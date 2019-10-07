@@ -1,7 +1,7 @@
 const sqlQuery = require("../../models/sql_query");
 const { incAllCardIdx, insertCard, insertCardFile, findCardById,
     findCardByUser, updateCardById, deleteCardById } = require("../../models/query_str");
-const upload2ncloud = require("../../modules/upload2ncloud");
+const upload2ncloud = require("../../middleware/upload2ncloud");
 
 module.exports = {
     async postController(req, res) { // url: /api/cards

@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const signupRouter = require('./signup');
 const todoRouter = require('./todo');
-const { onlyPublic, onlyPrivate } = require('../../modules/auth');
+const { onlyPublic, onlyPrivate } = require('../../middleware/auth');
 const { indexGetController, logoutController } = require("../../controllers/index_controllers");
 
 // url: /

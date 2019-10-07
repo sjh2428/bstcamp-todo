@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { postController, getController } = require("../../controllers/api/log_controllers");
-const { onlyPrivate } = require("../../modules/auth");
+const { onlyPrivate } = require("../../middleware/auth");
 
 // url: /api/logs
 
