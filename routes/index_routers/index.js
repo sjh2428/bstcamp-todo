@@ -4,7 +4,7 @@ const router = express.Router();
 const signupRouter = require('./signup');
 const todoRouter = require('./todo');
 const { onlyPublic, onlyPrivate } = require('../../middleware/auth');
-const { indexGetController, logoutController } = require("../../controllers/index_controllers");
+const { indexGetController, logoutController } = require("../../controllers/index/index_controllers");
 
 // url: /
 router.get('/', onlyPublic, indexGetController);
