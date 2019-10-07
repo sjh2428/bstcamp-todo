@@ -8,7 +8,8 @@ module.exports = {
         const params = [ project_name, 0, user_id ];
         let statusCode;
         try {
-            await sqlQuery(incProjectIdx + insertProject, params);
+            await sqlQuery(incProjectIdx);
+            await sqlQuery(insertProject, params);
             statusCode = 204;
         } catch(err) {
             statusCode = 500;

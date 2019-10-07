@@ -4,8 +4,7 @@ const pool = mysql.createPool({
     host: process.env.REMOTE_HOST,
     user: process.env.SQL_USER,
     password: process.env.SQL_PASS,
-    database: process.env.SQL_DB_NAME,
-    multipleStatements: true
+    database: process.env.SQL_DB_NAME
 });
 
 const query = async (sql, params = []) => {

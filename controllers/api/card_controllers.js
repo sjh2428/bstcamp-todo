@@ -9,11 +9,11 @@ module.exports = {
         const params = [ card_title, card_contents, 0, column_id, user_id ];
         let statusCode;
         try {
-            const sqlRes = await sqlQuery(incAllCardIdx + insertCard, params);
-            const INSERT = 1;
+            await sqlQuery(incAllCardIdx);
+            const sqlRes = await sqlQuery(insertCard, params);
             for (const file of req.files) {
                 const { originalname, buffer, mimetype } = file;
-                const params = [ sqlRes[INSERT].insertId, mimetype, originalname ];
+                const params = [ sqlRes.insertId, mimetype, originalname ];
                 await upload2ncloud(originalname, buffer);
                 await sqlQuery(insertCardFile, params);
             }
