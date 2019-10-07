@@ -24,8 +24,7 @@ module.exports = {
         try {
             const sqlRes = await sqlQuery(findColumnsByProjectId, param);
             statusCode = 200;
-            res.status(statusCode);
-            res.json(sqlRes);
+            res.status(statusCode).json(sqlRes);
         } catch(err) {
             statusCode = 500;
             res.status(statusCode);
@@ -39,8 +38,7 @@ module.exports = {
         try {
             const sqlRes = await sqlQuery(findColumnById, param);
             statusCode = 200;
-            res.status(statusCode);
-            res.json(sqlRes);
+            res.status(statusCode).json(sqlRes);
         } catch(err) {
             statusCode = 500;
             res.status(statusCode);

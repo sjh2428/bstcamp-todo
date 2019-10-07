@@ -32,8 +32,7 @@ module.exports = {
         try {
             const userData = await sqlQuery(findUserById, param);
             statusCode = 200;
-            res.status(statusCode);
-            res.json(userData);
+            res.status(statusCode).json(userData);
         } catch(err) {
             statusCode = 500;
             res.status(statusCode);

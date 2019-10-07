@@ -32,8 +32,7 @@ module.exports = {
         try {
             const sqlRes = await sqlQuery(findCardByUser, param);
             statusCode = 200;
-            res.status(statusCode);
-            res.json(sqlRes);
+            res.status(statusCode).json(sqlRes);
         } catch(err) {
             statusCode = 500;
             res.status(statusCode);
@@ -47,8 +46,7 @@ module.exports = {
         try {
             const sqlRes = await sqlQuery(findCardById, param);
             statusCode = 200;
-            res.status(statusCode);
-            res.json(sqlRes);
+            res.status(statusCode).json(sqlRes);
         } catch(err) {
             statusCode = 500;
             res.status(statusCode);

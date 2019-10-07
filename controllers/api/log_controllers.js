@@ -23,8 +23,7 @@ module.exports = {
         try {
             const sqlRes = await sqlQuery(findLogsByUserId, param);
             statusCode = 200;
-            res.status(statusCode);
-            res.json(sqlRes);
+            res.status(statusCode).json(sqlRes);
         } catch(err) {
             statusCode = 500;
             res.status(statusCode);
