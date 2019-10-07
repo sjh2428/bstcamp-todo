@@ -9,11 +9,13 @@ module.exports = {
         let statusCode;
         try {
             await sqlQuery(incProjectIdx);
-            await sqlQuery(insertProject, params);
-            statusCode = 204;
+            const insertPro = await sqlQuery(insertProject, params);
+            const param = [ insertPro.insertId ];
+            const sqlRes = await sqlQuery(findProjectById, param);
+            statusCode = 201;
+            res.status(statusCode).json(sqlRes);
         } catch(err) {
             statusCode = 500;
-        } finally {
             res.status(statusCode);
             res.end();
         }
