@@ -16,12 +16,12 @@ const indexRouter = require("./routes/index_routers");
 const adminRouter = require("./routes/admin_routers/index");
 const apiRouter = require("./routes/api_routers/index");
 
+const { REDIS_PORT, REMOTE_HOST } = process.env;
+const redisClient = redis.createClient(REDIS_PORT, REMOTE_HOST);
+
 const app = express();
 
 app.use(helmet());
-
-const { REDIS_PORT, REMOTE_HOST } = process.env;
-const redisClient = redis.createClient(REDIS_PORT, REMOTE_HOST);
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -35,8 +35,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(session({
   store: new RedisStore({
     client: redisClient,
-    host: process.env.REMOTE_HOST,
-    port: process.env.REDIS_PORT
+    host: REMOTE_HOST,
+    port: REDIS_PORT
   }),
   secret: "secret",
   resave: false, // 요청 때 세션이 수정된게 없으면 강제로 세션 저장
