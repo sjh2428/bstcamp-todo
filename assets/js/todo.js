@@ -32,14 +32,16 @@ const findIndexToInsertColumns = (coordinates, mousePos) => {
     return -1;
 };
 
+const columnWrapperDragStartHandler = (e) => e.target.style.opacity = 0.5;
+
+const columnWrapperDragEndHandler = (e) => {
+    e.target.style.opacity = 1;
+    const mainDOM = $('#main');
+    const mousePos = mainDOM.scrollLeft + window.event.clientX;
+    const idxToInsert = findIndexToInsertColumns(getCoordinatesBetweenColumns(), mousePos);
+}
+
 $$('.column-wrapper').forEach(wrapper => {
-    wrapper.addEventListener('dragstart', (e) => {
-        e.target.style.opacity = 0.5;
-    });
-    wrapper.addEventListener('dragend', (e) => {
-        e.target.style.opacity = 1;
-        const mainDOM = $('#main');
-        const mousePos = mainDOM.scrollLeft + window.event.clientX;
-        const idxToInsert = findIndexToInsertColumns(getCoordinatesBetweenColumns(), mousePos);
-    });
+    wrapper.addEventListener('dragstart', (e) => columnWrapperDragStartHandler(e));
+    wrapper.addEventListener('dragend', (e) => columnWrapperDragEndHandler(e));
 });
