@@ -6,18 +6,16 @@ const getCoordinatesBetweenColumns = () => {
     const columnWrappers = $$('.column-wrapper');
     const mainDOM = document.querySelector('#main');
     columnWrappers.forEach((wrapper, idx) => {
-        const { offsetLeft, offsetWidth } = wrapper;
+        const { offsetLeft } = wrapper;
         switch (idx) {
             case 0:
                 res.push({ left: 0, right: offsetLeft });
-                break;
-            case columnWrappers.length - 1:
-                res.push({ left: offsetLeft + offsetWidth, right: mainDOM.scrollWidth });
                 break;
             default:
                 res.push({ left: offsetLeft - res[0].right, right: offsetLeft });
         }
     });
+    res.push({ left: mainDOM.scrollWidth - res[0].right, right: mainDOM.scrollWidth });
     return res;
 }
 
@@ -45,6 +43,6 @@ $$('.column-wrapper').forEach(wrapper => {
     wrapper.addEventListener('dragend', (e) => {
         e.target.style.opacity = 1;
         const mousePos = document.querySelector('#main').scrollLeft + window.event.clientX;
-        findIndexToInsertColumns(getCoordinatesBetweenColumns(), mousePos);
+        const idxToInsert = findIndexToInsertColumns(getCoordinatesBetweenColumns(), mousePos);
     });
 });
