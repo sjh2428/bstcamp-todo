@@ -35,28 +35,15 @@ const findIndexToInsertColumns = (coordinates, mousePos) => {
 const columnWrapperDragStartHandler = (e) => e.target.style.opacity = 0.5;
 
 const columnWrapperDragEndHandler = (e) => {
-    e.target.style.opacity = 1;
+	e.target.style.opacity = 1;
 	const mainDOM = $('#main');
 	const coordinates = getCoordinatesBetweenColumns();
 	const mousePos = mainDOM.scrollLeft + window.event.clientX;
 	const idxToInsert = findIndexToInsertColumns(coordinates, mousePos);
-	const dataIdx = Number(e.target.getAttribute('data-idx'));
-	if (dataIdx - 1 <= idxToInsert && idxToInsert <= dataIdx + 1) return;
-	
+	if (findIndexToInsertColumns === -1) return;
 	if (idxToInsert === 0) mainDOM.firstChild.prepend(e.target);
 	else if (idxToInsert === coordinates.length - 1) mainDOM.firstChild.appendChild(e.target);
-	else {
-		// 고치는중
-		if (Number(e.target.getAttribute('data-idx')) < idxToInsert) {
-			// 앞에서 가느냐
-			mainDOM.firstChild.insertBefore(e.target, $(`.column-wrapper[data-idx='${idxToInsert}']`));
-		} else {
-			// 뒤에서 가느냐
-			mainDOM.firstChild.insertBefore(e.target, $(`.column-wrapper[data-idx='${idxToInsert + 1}']`));
-		}
-	}
-	
-	// mainDOM.insertBefore(e.target, $(`.column-wrapper[data-idx='${idxToInsert}']`));
+	else mainDOM.firstChild.insertBefore(e.target, $(`.column-wrapper[data-idx='${idxToInsert}']`));
 }
 
 $$('.column-wrapper').forEach(wrapper => {
