@@ -3,19 +3,15 @@ const $$ = (selector, base = document) => base.querySelectorAll(selector);
 
 const getCoordinatesBetweenColumns = () => {
     const res = [];
+    const mainDOM = $('#main');
     const columnWrappers = $$('.column-wrapper');
-    const mainDOM = document.querySelector('#main');
+    const { scrollWidth } = mainDOM;
     columnWrappers.forEach((wrapper, idx) => {
         const { offsetLeft } = wrapper;
-        switch (idx) {
-            case 0:
-                res.push({ left: 0, right: offsetLeft });
-                break;
-            default:
-                res.push({ left: offsetLeft - res[0].right, right: offsetLeft });
-        }
+        if (idx === 0) res.push({ left: 0, right: offsetLeft });
+        else res.push({ left: offsetLeft - res[0].right, right: offsetLeft });
     });
-    res.push({ left: mainDOM.scrollWidth - res[0].right, right: mainDOM.scrollWidth });
+    res.push({ left: scrollWidth - res[0].right, right: scrollWidth });
     return res;
 }
 
@@ -42,7 +38,8 @@ $$('.column-wrapper').forEach(wrapper => {
     });
     wrapper.addEventListener('dragend', (e) => {
         e.target.style.opacity = 1;
-        const mousePos = document.querySelector('#main').scrollLeft + window.event.clientX;
+        const mainDOM = $('#main');
+        const mousePos = mainDOM.scrollLeft + window.event.clientX;
         const idxToInsert = findIndexToInsertColumns(getCoordinatesBetweenColumns(), mousePos);
     });
 });
