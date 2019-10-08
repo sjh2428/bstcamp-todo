@@ -1,5 +1,5 @@
-mixin card(card_title)
-    .card-wrapper
+mixin card(card_title, card_idx)
+    .card-wrapper(draggable="true", data-idx=#{card_idx})
         .card-icon 📑
         .card-main-wrapper
             .card-title #{card_title}
