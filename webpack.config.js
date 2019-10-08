@@ -10,7 +10,7 @@ module.exports = {
     },
     // compile + bundling된 js파일이 저장될 경로와 이름 지정
     output: {
-        path: path.resolve(__dirname, "public/js"),
+        path: path.resolve(__dirname, "public/javascripts"),
         filename: "[name].bundle.js"
     },
     module: {
