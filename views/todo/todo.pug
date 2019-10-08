@@ -1,6 +1,13 @@
 extends todo_layout
+include mixins/column-mixin
 
 block content
     include todo_header
     main#main
+        ul.column-container
+            +column('column1', 'card-title1')
+            +column('column2', 'card-title2')
+            +column('column3', 'card-title3')
+            +column('column4', 'card-title4')
+
     script(src="/javascripts/todo.bundle.js")

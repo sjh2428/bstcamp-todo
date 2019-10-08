@@ -1,0 +1,21 @@
+include card-mixin
+
+mixin column(column_name, card_name)
+    li.column-wrapper
+        .column-head
+            .column-name #{column_name}
+            .column-head-btns
+                .column-add-btn +
+                .column-menu-btn &hellip;
+        .column-main
+            +card(card_name)
+            +card(card_name)
+            +card(card_name)
+            +card(card_name)
+            +card(card_name)
+            +card(card_name)
+            +card(card_name)
+            +card(card_name)
+            +card(card_name)
+            +card(card_name)
+            
