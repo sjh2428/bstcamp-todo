@@ -21,8 +21,22 @@ const getCoordinatesBetweenColumns = () => {
     return res;
 }
 
-console.log(getCoordinatesBetweenColumns());
-
+const findIndexToInsertColumns = (coordinates, mousePos) => {
+    let first = 0;
+    let mid = 0;
+    let last = coordinates.length - 1;
+    while (first <= last) {
+        mid = Math.floor((first + last) / 2);
+        if (coordinates[mid].left <= mousePos && mousePos <= coordinates[mid].right) {
+            return mid;
+        } else if (coordinates[mid].left > mousePos) {
+            last = mid - 1;
+        } else {
+            first = mid + 1;
+        }
+    }
+    return -1;
+};
 
 $$('.column-wrapper').forEach(wrapper => {
     wrapper.addEventListener('dragstart', (e) => {
@@ -30,13 +44,7 @@ $$('.column-wrapper').forEach(wrapper => {
     });
     wrapper.addEventListener('dragend', (e) => {
         e.target.style.opacity = 1;
+        const mousePos = document.querySelector('#main').scrollLeft + window.event.clientX;
+        findIndexToInsertColumns(getCoordinatesBetweenColumns(), mousePos);
     });
 });
-
-
-
-// document.querySelectorAll('.column-wrapper')[1].querySelector('.card-wrapper').addEventListener('dragover', (e) => {
-// 	e.preventDefault();
-// 	console.log(document.querySelector('#main').scrollLeft + window.event.clientX);
-	
-// })
