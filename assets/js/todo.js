@@ -42,12 +42,27 @@ const columnWrapperDragEndHandler = (target) => {
 	const mousePos = mainDOM.scrollLeft + window.event.clientX;
 	const idxToInsert = findIndexToInsertColumns(coordinates, mousePos);
 	if (idxToInsert === -1) return;
-	if (idxToInsert === 0) mainDOM.firstChild.prepend(target);
-	else if (idxToInsert === coordinates.length - 1) mainDOM.firstChild.appendChild(target);
-	else mainDOM.firstChild.insertBefore(target, $(`.column-wrapper[data-idx='${idxToInsert}']`));
+    if (idxToInsert === 0) {
+        mainDOM.firstChild.prepend(target);
+        updateColumnIdx();
+    }
+	else if (idxToInsert === coordinates.length - 1) {
+        mainDOM.firstChild.appendChild(target);
+        updateColumnIdx();
+    }
+	else {
+        mainDOM.firstChild.insertBefore(target, $(`.column-wrapper[data-idx='${idxToInsert}']`));
+        updateColumnIdx();
+    }
 }
 
 $$('.column-wrapper').forEach(wrapper => {
     wrapper.addEventListener('dragstart', (e) => columnWrapperDragStartHandler(e.target));
     wrapper.addEventListener('dragend', (e) => columnWrapperDragEndHandler(e.target));
 });
+
+const updateColumnIdx = () => {
+    Object.entries($('.column-container').children)
+        .map(([data_idx, element]) => (element.setAttribute('data-idx', data_idx), element));
+    // DB update
+}
