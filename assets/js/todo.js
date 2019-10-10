@@ -106,10 +106,8 @@ const cardWrapperDragEndHandler = (e) => {
     if (cardWrapperAtMouse.className === 'card-wrapper') {
         if (mouseYpos < (topPos + botPos) / 2) {
             cardWrapperAtMouse.insertAdjacentElement('beforebegin', cardWrapperOnMouse);
-            cardWrapperAtMouse.parentElement.scrollTop -= cardWrapperAtMouse.offsetHeight;
         } else {
             cardWrapperAtMouse.insertAdjacentElement('afterend', cardWrapperOnMouse);
-            cardWrapperAtMouse.parentElement.scrollTop += cardWrapperAtMouse.offsetHeight;
         }
     } else if (cardWrapperAtMouse.className === 'column-main') {
         cardWrapperAtMouse.appendChild(cardWrapperOnMouse);

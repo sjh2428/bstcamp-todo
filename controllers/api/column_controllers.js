@@ -18,7 +18,7 @@ module.exports = {
         }
     },
     async getController(req, res) { // url: /api/columns
-        const { project_id } = req.body;
+        const { project_id } = req.query;
         const param = [ project_id ];
         let statusCode;
         try {

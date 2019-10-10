@@ -27,7 +27,7 @@ module.exports = {
     },
     async doYouHaveRAuth(req, res, next) {
         const { user_id } = req.user;
-        const { project_id } = req.body || req.query;
+        const { project_id } = req.query;
         const params = [ user_id, project_id ];
         const [ sqlRes ] = await sqlQuery(findAuthByUserIdProjectId, params);
         if (sqlRes.authority) next();
@@ -38,7 +38,7 @@ module.exports = {
     },
     async doYouHaveRWAuth(req, res, next) {
         const { user_id } = req.user;
-        const { project_id } = req.body || req.query;
+        const { project_id } = req.body;
         const params = [ user_id, project_id ];
         const [ sqlRes ] = await sqlQuery(findAuthByUserIdProjectId, params);
         if (sqlRes.authority === 2) next();
