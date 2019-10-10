@@ -1,7 +1,7 @@
 module.exports = {
     indexGetController(req, res) { // url: /
-        const flashMsg = req.flash().error;
-        res.render('index', { message: flashMsg || undefined });
+        const message = req.flash().error || undefined;
+        res.render('index', { message });
     },
     logoutController(req, res) {
         req.logout();

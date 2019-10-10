@@ -15,14 +15,14 @@ module.exports = {
         }
     },
     async getController(req, res) { // url: /admin/users
-        let getUsersData;
-        const flashMsg = req.flash("fail_to_post_user");
+        let userData;
+        const message = req.flash("fail_to_post_user") || undefined;
         try {
-            getUsersData = await sqlQuery(findUserAll);
+            userData = await sqlQuery(findUserAll);
         } catch(err) {
-            getUsersData = [undefined];
+            userData = [undefined];
         } finally {
-            res.render("/admin/users", { user: req.user, userData: getUsersData, message: flashMsg || undefined });
+            res.render("/admin/users", { user: req.user, userData, message });
         }
     },
     async idGetController(req, res) { // url: /admin/users/:id

@@ -3,8 +3,8 @@ const { insertUser } = require("../../models/query_str");
 
 module.exports = {
     signUpGetController(req, res) { // url: /sign-up
-        const flashMsg = req.flash('fail_to_sign_up');
-        res.render('index/sign_up', { message: flashMsg || undefined });
+        const message = req.flash('fail_to_sign_up') || undefined;
+        res.render('index/sign_up', { message });
     },
     async signUpPostController(req, res) { // url: /sign-up
         const { user_id, user_pass, user_name, admin } = req.body;
