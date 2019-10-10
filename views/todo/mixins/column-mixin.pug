@@ -1,7 +1,7 @@
 include card-mixin
 
 mixin column(column_name, column_idx, card_name)
-    li.column-wrapper(draggable="true", data-idx=column_idx)
+    li.column-wrapper(draggable="true", column-idx=column_idx)
         .column-head
             .column-name #{column_name}
             .column-head-btns

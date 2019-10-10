@@ -52,7 +52,7 @@ const columnWrapperDragEndHandler = (e) => {
         updateColumnIdx();
     }
 	else {
-        mainDOM.firstChild.insertBefore(e.target, $(`.column-wrapper[data-idx='${idxToInsert}']`));
+        mainDOM.firstChild.insertBefore(e.target, $(`.column-wrapper[column-idx='${idxToInsert}']`));
         updateColumnIdx();
     }
 }
@@ -64,6 +64,6 @@ $$('.column-wrapper').forEach(wrapper => {
 
 const updateColumnIdx = () => {
     Object.entries($('.column-container').children)
-        .map(([data_idx, element]) => (element.setAttribute('data-idx', data_idx), element));
+        .map(([column_idx, element]) => (element.setAttribute('column-idx', column_idx), element));
     // DB update
 }
