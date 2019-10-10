@@ -70,6 +70,13 @@ const updateColumnIdx = () => {
     // DB update
 }
 
+const updateCardIdx = () => {
+    document.querySelectorAll('.column-main').forEach(col_main => 
+        Object.entries(col_main.children).map(([card_idx, card_wrapper]) => 
+            (card_wrapper.setAttribute('card-idx', card_idx), card_wrapper)));
+    // DB update
+}
+
 $$('.column-wrapper').forEach(wrapper => {
     wrapper.addEventListener('dragstart', (e) => columnWrapperDragStartHandler(e));
     wrapper.addEventListener('dragend', (e) => columnWrapperDragEndHandler(e));
@@ -99,6 +106,7 @@ const cardWrapperDragEndHandler = (e) => {
     const mouseYpos = getMouseYPosInColumn(cardWrapperAtMouse.parentElement);
     if (mouseYpos < (topPos + botPos) / 2) cardWrapperAtMouse.insertAdjacentElement('beforebegin', e.target);
     else cardWrapperAtMouse.insertAdjacentElement('afterend', e.target);
+    updateCardIdx();
 }
 
 $$('.card-wrapper').forEach(wrapper => {
