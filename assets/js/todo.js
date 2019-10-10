@@ -32,15 +32,21 @@ const findIndexToInsertColumns = (coordinates, mousePos) => {
     return -1;
 };
 
-const columnWrapperDragStartHandler = (target) => target.style.opacity = 0.5;
+const columnWrapperDragStartHandler = (e) => {
+    e.stopPropagation();
+    e.target.style.opacity = 0.5;
+}
+
+const getMousePosInMain = () => $('#main').scrollLeft + window.event.clientX;
 
 const columnWrapperDragEndHandler = (e) => {
     e.preventDefault();
+    e.stopPropagation();
 	e.target.style.opacity = 1;
 	if (e.target.className !== 'column-wrapper') return;
 	const mainDOM = $('#main');
 	const coordinates = getCoordinatesBetweenColumns();
-	const mousePos = mainDOM.scrollLeft + window.event.clientX;
+	const mousePos = getMousePosInMain();
 	const idxToInsert = findIndexToInsertColumns(coordinates, mousePos);
 	if (idxToInsert === -1) return;
     if (idxToInsert === 0) {
@@ -57,13 +63,30 @@ const columnWrapperDragEndHandler = (e) => {
     }
 }
 
-$$('.column-wrapper').forEach(wrapper => {
-    wrapper.addEventListener('dragstart', (e) => columnWrapperDragStartHandler(e.target));
-    wrapper.addEventListener('dragend', (e) => columnWrapperDragEndHandler(e));
-});
-
 const updateColumnIdx = () => {
     Object.entries($('.column-container').children)
         .map(([column_idx, element]) => (element.setAttribute('column-idx', column_idx), element));
     // DB update
 }
+
+$$('.column-wrapper').forEach(wrapper => {
+    wrapper.addEventListener('dragstart', (e) => columnWrapperDragStartHandler(e));
+    wrapper.addEventListener('dragend', (e) => columnWrapperDragEndHandler(e));
+});
+
+const cardWrapperDragStartHandler = (e) => {
+    e.stopPropagation();
+    e.target.style.opacity = 0.5;
+}
+
+const cardWrapperDragEndHandler = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+	e.target.style.opacity = 1;
+}
+
+$$('.card-wrapper').forEach(wrapper => {
+    wrapper.addEventListener('dragstart', (e) => cardWrapperDragStartHandler(e));
+    wrapper.addEventListener('dragend', (e) => cardWrapperDragEndHandler(e));
+});
+
