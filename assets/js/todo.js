@@ -37,7 +37,7 @@ const columnWrapperDragStartHandler = (e) => {
     e.target.style.opacity = 0.5;
 }
 
-const getMousePosInMain = () => $('#main').scrollLeft + window.event.clientX;
+const getMouseXposInMain = () => $('#main').scrollLeft + window.event.clientX;
 
 const columnWrapperDragEndHandler = (e) => {
     e.preventDefault();
@@ -46,7 +46,7 @@ const columnWrapperDragEndHandler = (e) => {
 	if (e.target.className !== 'column-wrapper') return;
 	const mainDOM = $('#main');
 	const coordinates = getCoordinatesBetweenColumns();
-	const mousePos = getMousePosInMain();
+	const mousePos = getMouseXposInMain();
 	const idxToInsert = findIndexToInsertColumns(coordinates, mousePos);
 	if (idxToInsert === -1) return;
     if (idxToInsert === 0) {
