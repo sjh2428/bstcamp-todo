@@ -8,10 +8,8 @@ module.exports = {
         let statusCode;
         try {
             const insertLogSql = await sqlQuery(insertLog, params);
-            const insertedLogId = [ insertLogSql.insertId ]
-            const sqlRes = await sqlQuery(findLogById, insertedLogId);
             statusCode = 201;
-            res.status(statusCode).json(sqlRes);
+            res.status(statusCode).json(insertLogSql);
         } catch(err) {
             statusCode = 500;
             res.status(statusCode);

@@ -10,10 +10,8 @@ module.exports = {
         try {
             await sqlQuery(incProjectIdx);
             const insertPro = await sqlQuery(insertProject, params);
-            const param = [ insertPro.insertId ];
-            const sqlRes = await sqlQuery(findProjectById, param);
             statusCode = 201;
-            res.status(statusCode).json(sqlRes);
+            res.status(statusCode).json(insertPro);
         } catch(err) {
             statusCode = 500;
             res.status(statusCode);

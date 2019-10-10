@@ -9,10 +9,8 @@ module.exports = {
         let statusCode;
         try {
             const insertCol = await sqlQuery(insertColumn, params);
-            const param = [ insertCol.insertId ];
-            const sqlRes = await sqlQuery(findColumnById, param);
             statusCode = 201;
-            res.status(statusCode).json(sqlRes);
+            res.status(statusCode).json(insertCol);
         } catch(err) {
             statusCode = 500;
             res.status(statusCode);
