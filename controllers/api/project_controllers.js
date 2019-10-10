@@ -5,7 +5,8 @@ const { incProjectIdx, insertProject, findProjectsByUserId, findProjectById,
 module.exports = {
     async postController(req, res) { // url: /api/projects
         const { body: { project_name }, user: { user_id } } = req;
-        const params = [ project_name, 0, user_id ];
+        const project_idx = 0;
+        const params = [ project_name, project_idx, user_id ];
         let statusCode;
         try {
             await sqlQuery(incProjectIdx);
