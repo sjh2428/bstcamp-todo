@@ -1,0 +1,103 @@
+$header-height: 3rem;
+$header-font-size: 2rem;
+$header-font-margin: ($header-height - $header-font-size) / 2;
+
+$main-height: 80%;
+$main-padding: 1rem;
+
+$column-width: 20rem;
+
+$border-color: #E0E4E8;
+$border-radius-px: 8px;
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    background-color: #fffaf3;
+}
+
+header {
+    width: 100%;
+    height: $header-height;
+    background-color: black;
+    color: white;
+    font-weight: bold;
+    font-size: $header-font-size;
+    display: flex;
+    justify-content: space-between;
+    & > * {
+        margin: $header-font-margin;
+    }
+}
+
+.right {
+    & > a {
+        text-decoration: none;
+        color: white;
+        font-size: $header-font-size * 0.7;
+    }
+}
+
+main {
+    height: $main-height;
+    padding: $main-padding;
+    overflow-x: scroll;
+    .column-container {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        display: inline-flex;
+        .column-wrapper {
+            width: $column-width;
+            margin-right: 1rem;
+            background-color: #EFF1F3;
+            border-radius: $border-radius-px;
+            border: 1px solid $border-color;
+            padding: 1rem;
+            .column-head {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 0.5rem;
+                font-size: 1.5rem;
+                font-weight: 600;
+                & > * {
+                    align-self: center;
+                }
+                .column-head-btns {
+                    width: 3rem;
+                    display: inline-flex;
+                    justify-content: space-between;
+                    & > * {
+                        align-self: center;
+                    }
+                }
+            }
+            .column-main {
+                height: 35rem;
+                overflow-y: scroll;
+                .card-wrapper {
+                    padding: $main-padding;
+                    border: 1px solid $border-color;
+                    background-color: white;
+                    border-radius: $border-radius-px;
+                    display: flex;
+                    .card-main-wrapper {
+                        width: 100%;
+                        .card-title {
+                            font-size: 1.3rem;
+                        }
+                        .card-who {
+                            margin-top: 0.8rem;
+                            font-size: 0.8rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

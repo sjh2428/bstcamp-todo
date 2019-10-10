@@ -152,10 +152,10 @@ $ npm start
 |-----------|---------------------------------------|-------------------------------------------------|
 | `/`         | passport login - redirect `/todo` or `/`  | render index\.pug \(Login Page\)           |
 | `/sign-up` | redirectSuccess: `/`, Fail: `/sign-up` | render sign\-up\.pug \(Sign Up Page\)           |
-| `/todo`     | Error 404                             | render todo\.pug \(Todo Page about login user\) |
-| `/todo/:id` | Error 404                             | render todo\.pug \(Todo Page about user id\)    |
+| `/project`     | Error 404                             | render project\.pug \(Project Page about login user\) |
+| `/project/:id`     | Error 404                             | render project\.pug \(Project Page about login user\) |
 
-- `/todo/:id` `GET`: 해당 유저의 Todo에 들어가면 Todo cards가 존재하는데, 그 cards는 읽기 권한이 존재하는 유저에게만 보여야 함
+- `/project/:id` `GET`: 해당 유저의 Project 들어가면 Todo cards가 존재하는데, 그 cards는 읽기 권한이 존재하는 유저에게만 보여야 함
 
 #### Admin Router `/admin`
 | Resource     | POST        | GET               | PUT             | DELETE                   |
