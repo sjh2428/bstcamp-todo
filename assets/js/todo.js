@@ -80,10 +80,25 @@ const cardWrapperDragStartHandler = (e) => {
     e.target.style.opacity = 0.5;
 }
 
+const getCardWrapper = (element) => {
+    if (element === document.body) return false;
+    if (element.className === 'card-wrapper') return element;
+    return getCardWrapper(element.parentElement);
+}
+
 const cardWrapperDragEndHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
-	e.target.style.opacity = 1;
+    e.target.style.opacity = 1;
+    const { clientX, clientY } = window.event;
+    const cardWrapperAtMouse = getCardWrapper(document.elementFromPoint(clientX, clientY));
+    if (!cardWrapperAtMouse) return;
+
+    const { offsetTop, offsetHeight } = cardWrapperAtMouse;
+    const [ topPos, botPos ] = [ offsetTop, offsetTop + offsetHeight ];
+    const mouseYpos = getMouseYPosInColumn(cardWrapperAtMouse.parentElement);
+    if (mouseYpos < (topPos + botPos) / 2) cardWrapperAtMouse.insertAdjacentElement('beforebegin', e.target);
+    else cardWrapperAtMouse.insertAdjacentElement('afterend', e.target);
 }
 
 $$('.card-wrapper').forEach(wrapper => {
