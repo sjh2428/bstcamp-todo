@@ -105,23 +105,3 @@ $$('.card-wrapper').forEach(wrapper => {
     wrapper.addEventListener('dragstart', (e) => cardWrapperDragStartHandler(e));
     wrapper.addEventListener('dragend', (e) => cardWrapperDragEndHandler(e));
 });
-
-const getCardsBoundary = () => {
-    const res = [];
-    document.querySelectorAll('.column-wrapper').forEach(colWrapper => {
-        const column = [];
-        colWrapper.querySelectorAll('.card-wrapper').forEach(cardWrapper => {
-            const { scrollLeft: mainScrLeft } = $('#main');
-            const { offsetTop, offsetLeft, offsetWidth, offsetHeight } = cardWrapper;
-            const cardOfLeftPos = mainScrLeft + offsetLeft;
-            const cardOfRightPos = cardOfLeftPos + offsetWidth;
-            const cardOfTopPos = offsetTop;
-            const cardOfBottomPos = cardOfTopPos + offsetHeight;
-            column.push({ cardOfLeftPos, cardOfRightPos, cardOfTopPos, cardOfBottomPos });
-        });
-        res.push(column);
-    });
-    return res;
-}
-
-console.log(getCardsBoundary());
