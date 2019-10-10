@@ -52,25 +52,21 @@ const columnWrapperDragEndHandler = (e) => {
 	if (idxToInsert === -1) return;
     if (idxToInsert === 0) {
         mainDOM.firstChild.prepend(e.target);
-        updateColumnIdx();
+        updateColumnAndCardIdx();
     }
 	else if (idxToInsert === coordinates.length - 1) {
         mainDOM.firstChild.appendChild(e.target);
-        updateColumnIdx();
+        updateColumnAndCardIdx();
     }
 	else {
         mainDOM.firstChild.insertBefore(e.target, $(`.column-wrapper[column-idx='${idxToInsert}']`));
-        updateColumnIdx();
+        updateColumnAndCardIdx();
     }
 }
 
-const updateColumnIdx = () => {
+const updateColumnAndCardIdx = () => {
     Object.entries($('.column-container').children)
         .map(([column_idx, element]) => (element.setAttribute('column-idx', column_idx), element));
-    // DB update
-}
-
-const updateCardIdx = () => {
     document.querySelectorAll('.column-main').forEach(col_main => 
         Object.entries(col_main.children).map(([card_idx, card_wrapper]) => 
             (card_wrapper.setAttribute('card-idx', card_idx), card_wrapper)));
@@ -79,6 +75,7 @@ const updateCardIdx = () => {
 
 $$('.column-wrapper').forEach(wrapper => {
     wrapper.addEventListener('dragstart', (e) => columnWrapperDragStartHandler(e));
+    wrapper.addEventListener('dragover', (e) => e.preventDefault());
     wrapper.addEventListener('dragend', (e) => columnWrapperDragEndHandler(e));
 });
 
@@ -90,6 +87,7 @@ const cardWrapperDragStartHandler = (e) => {
 const getCardWrapper = (element) => {
     if (element === document.body) return false;
     if (element.className === 'card-wrapper') return element;
+    if (element.className === 'column-main') return element;
     return getCardWrapper(element.parentElement);
 }
 
@@ -97,19 +95,32 @@ const cardWrapperDragEndHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
     e.target.style.opacity = 1;
+    const cardWrapperOnMouse = getCardWrapper(e.target);
     const { clientX, clientY } = window.event;
     const cardWrapperAtMouse = getCardWrapper(document.elementFromPoint(clientX, clientY));
-    if (!cardWrapperAtMouse) return;
-
+    if (!cardWrapperAtMouse || !cardWrapperOnMouse) return;
     const { offsetTop, offsetHeight } = cardWrapperAtMouse;
     const [ topPos, botPos ] = [ offsetTop, offsetTop + offsetHeight ];
     const mouseYpos = getMouseYPosInColumn(cardWrapperAtMouse.parentElement);
-    if (mouseYpos < (topPos + botPos) / 2) cardWrapperAtMouse.insertAdjacentElement('beforebegin', e.target);
-    else cardWrapperAtMouse.insertAdjacentElement('afterend', e.target);
-    updateCardIdx();
+
+    if (cardWrapperAtMouse.className === 'card-wrapper') {
+        if (mouseYpos < (topPos + botPos) / 2) {
+            cardWrapperAtMouse.insertAdjacentElement('beforebegin', cardWrapperOnMouse);
+            cardWrapperAtMouse.parentElement.scrollTop -= cardWrapperAtMouse.offsetHeight;
+        } else {
+            cardWrapperAtMouse.insertAdjacentElement('afterend', cardWrapperOnMouse);
+            cardWrapperAtMouse.parentElement.scrollTop += cardWrapperAtMouse.offsetHeight;
+        }
+    } else if (cardWrapperAtMouse.className === 'column-main') {
+        cardWrapperAtMouse.appendChild(cardWrapperOnMouse);
+        cardWrapperAtMouse.scrollTop += cardWrapperOnMouse.offsetHeight;
+    }
+    
+    updateColumnAndCardIdx();
 }
 
 $$('.card-wrapper').forEach(wrapper => {
     wrapper.addEventListener('dragstart', (e) => cardWrapperDragStartHandler(e));
+    wrapper.addEventListener('dragover', (e) => e.preventDefault());
     wrapper.addEventListener('dragend', (e) => cardWrapperDragEndHandler(e));
 });
