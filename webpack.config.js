@@ -25,7 +25,11 @@ module.exports = {
                 // 제외할 파일을 일치시키는데 사용
                 exclude: /node_modules/,
                 use: {
-                    loader: "babel-loader"
+                    loader: "babel-loader",
+                    options: {
+                        presets: ['@babel/preset-env'],
+                        plugins: ["@babel/plugin-transform-modules-commonjs"]
+                    }
                 }
             }, {
                 test: /\.s[ac]ss$/,
