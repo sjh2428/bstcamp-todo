@@ -38,6 +38,7 @@ const columnWrapperDragStartHandler = (e) => {
 }
 
 const getMouseXposInMain = () => $('#main').scrollLeft + window.event.clientX;
+const getMouseYPosInColumn = (columnMain) => columnMain.scrollTop + window.event.clientX;
 
 const columnWrapperDragEndHandler = (e) => {
     e.preventDefault();
