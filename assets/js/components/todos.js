@@ -1,5 +1,8 @@
-module.exports = class {
+const Events = require('../events');
+
+module.exports = class extends Events {
     constructor(columnData) {
+        super();
         this.columnData = columnData;
     }
 
