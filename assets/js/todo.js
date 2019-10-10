@@ -34,31 +34,32 @@ const findIndexToInsertColumns = (coordinates, mousePos) => {
 
 const columnWrapperDragStartHandler = (target) => target.style.opacity = 0.5;
 
-const columnWrapperDragEndHandler = (target) => {
-	target.style.opacity = 1;
-	if (target.className !== 'column-wrapper') return;
+const columnWrapperDragEndHandler = (e) => {
+    e.preventDefault();
+	e.target.style.opacity = 1;
+	if (e.target.className !== 'column-wrapper') return;
 	const mainDOM = $('#main');
 	const coordinates = getCoordinatesBetweenColumns();
 	const mousePos = mainDOM.scrollLeft + window.event.clientX;
 	const idxToInsert = findIndexToInsertColumns(coordinates, mousePos);
 	if (idxToInsert === -1) return;
     if (idxToInsert === 0) {
-        mainDOM.firstChild.prepend(target);
+        mainDOM.firstChild.prepend(e.target);
         updateColumnIdx();
     }
 	else if (idxToInsert === coordinates.length - 1) {
-        mainDOM.firstChild.appendChild(target);
+        mainDOM.firstChild.appendChild(e.target);
         updateColumnIdx();
     }
 	else {
-        mainDOM.firstChild.insertBefore(target, $(`.column-wrapper[data-idx='${idxToInsert}']`));
+        mainDOM.firstChild.insertBefore(e.target, $(`.column-wrapper[data-idx='${idxToInsert}']`));
         updateColumnIdx();
     }
 }
 
 $$('.column-wrapper').forEach(wrapper => {
     wrapper.addEventListener('dragstart', (e) => columnWrapperDragStartHandler(e.target));
-    wrapper.addEventListener('dragend', (e) => columnWrapperDragEndHandler(e.target));
+    wrapper.addEventListener('dragend', (e) => columnWrapperDragEndHandler(e));
 });
 
 const updateColumnIdx = () => {
