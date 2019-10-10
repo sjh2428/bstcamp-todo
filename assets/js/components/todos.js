@@ -16,6 +16,21 @@ module.exports = class extends Events {
                         <div class='column-menu-btn'>&hellip;</div>
                     </div>
                 </div>
+                <div class='new-todo-wrapper'>
+                    <form>
+                        <div class='input-area-wrapper'>
+                            <input type='text' name='new-todo-title'>
+                            <textarea name='new-todo-content'></textarea>
+                        </div>
+                        <div class='input-files-wrapper'>
+                            <input type='file' name='new-todo-files' multiple>
+                        </div>
+                        <div class='new-todo-btns'>
+                            <input type='submit' class='add-btn' value='Add'>
+                            <input type='reset' class='cancel-btn' value='Cancel'>
+                        </div>
+                    </form>
+                </div>
                 <div class='column-main'>
                     ${this.cardRender(colData.cards)}
                 </div>

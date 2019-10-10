@@ -7,6 +7,7 @@ module.exports = class extends Observer {
         super();
         this.subscribe(() => this.initColumns());
         this.subscribe(() => this.initCards());
+        this.subscribe(() => this.initColBtns());
     }
 
     getCoordinatesBetweenColumns() {
@@ -124,6 +125,10 @@ module.exports = class extends Observer {
         this.updateColumnAndCardIdx();
     }
 
+    cardAddBtnHandler(e) {
+        
+    }
+
     initColumns() {
         $$('.column-wrapper').forEach(wrapper => {
             wrapper.addEventListener('dragstart', (e) => this.columnWrapperDragStartHandler(e));
@@ -137,6 +142,12 @@ module.exports = class extends Observer {
             wrapper.addEventListener('dragstart', (e) => this.cardWrapperDragStartHandler(e));
             wrapper.addEventListener('dragover', (e) => e.preventDefault());
             wrapper.addEventListener('dragend', (e) => this.cardWrapperDragEndHandler(e));
+        });
+    }
+
+    initColBtns() {
+        $$('.column-add-btn').forEach(addBtn => {
+            addBtn.addEventListener('click', (e) => this.cardAddBtnHandler(e));
         });
     }
 }
