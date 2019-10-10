@@ -3,10 +3,9 @@ const path = require("path");
 module.exports = {
     // entry file
     entry: {
-        todo: ["@babel/polyfill", "./assets/todo.js"],
         admin: ["./assets/admin.js"],
         index: ["./assets/index.js"],
-        project: ["./assets/project.js"]
+        project: ["@babel/polyfill", "./assets/project.js"]
     },
     // compile + bundling된 js파일이 저장될 경로와 이름 지정
     output: {

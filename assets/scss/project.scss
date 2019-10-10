@@ -74,6 +74,7 @@ main {
                     justify-content: space-between;
                     & > * {
                         align-self: center;
+                        cursor: pointer;
                     }
                 }
             }
