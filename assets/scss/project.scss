@@ -78,6 +78,42 @@ main {
                     }
                 }
             }
+            .new-todo-wrapper {
+                .input-area-wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    .card-input-content {
+                        resize: vertical;
+                    }
+                    & > * {
+                        padding: 0.5rem;
+                        font-size: 1rem;
+                        border: 1px solid $border-color;
+                        border-radius: 4px;
+                    }
+                }
+                .new-todo-btns {
+                    display: flex;
+                    justify-content: center;
+                    height: 3rem;
+                    & > * {
+                        width: $column-width / 2;
+                        height: 100%;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border-radius: $border-radius-px;
+                        border: 1px solid $border-color;
+                        cursor: pointer;
+                    }
+                    .add-btn {
+                        background-color: #32C954;
+                    }
+                    .cancel-btn {
+                        background-color: #F9FAFB;
+                    }
+                }
+            }
             .column-main {
                 height: 35rem;
                 overflow-y: scroll;

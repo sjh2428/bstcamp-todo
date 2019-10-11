@@ -126,7 +126,9 @@ module.exports = class extends Observer {
     }
 
     cardAddBtnHandler(e) {
-        
+        const { nextElementSibling } = e.target.parentElement.parentElement;
+        if (nextElementSibling.style.display === "block") nextElementSibling.style.display = "none";
+        else nextElementSibling.style.display = "block";
     }
 
     initColumns() {
@@ -148,6 +150,9 @@ module.exports = class extends Observer {
     initColBtns() {
         $$('.column-add-btn').forEach(addBtn => {
             addBtn.addEventListener('click', (e) => this.cardAddBtnHandler(e));
+        });
+        $$('.cancel-btn').forEach(cancelBtn => {
+            cancelBtn.addEventListener('click', (e) => e.target.parentElement.parentElement.style.display='none');
         });
     }
 }

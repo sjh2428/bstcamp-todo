@@ -1,6 +1,6 @@
-const Events = require('../events');
+const TodoEvents = require('../todo_events');
 
-module.exports = class extends Events {
+module.exports = class extends TodoEvents {
     constructor(columnData) {
         super();
         this.columnData = columnData;
@@ -16,25 +16,30 @@ module.exports = class extends Events {
                         <div class='column-menu-btn'>&hellip;</div>
                     </div>
                 </div>
-                <div class='new-todo-wrapper'>
-                    <form>
-                        <div class='input-area-wrapper'>
-                            <input type='text' name='new-todo-title'>
-                            <textarea name='new-todo-content'></textarea>
-                        </div>
-                        <div class='input-files-wrapper'>
-                            <input type='file' name='new-todo-files' multiple>
-                        </div>
-                        <div class='new-todo-btns'>
-                            <input type='submit' class='add-btn' value='Add'>
-                            <input type='reset' class='cancel-btn' value='Cancel'>
-                        </div>
-                    </form>
-                </div>
+                ${this.newTodoRender(colData.column_id)}
                 <div class='column-main'>
                     ${this.cardRender(colData.cards)}
                 </div>
             </li>`, '');
+    }
+
+    newTodoRender(column_id) {
+        return (/*html*/`
+            <div class='new-todo-wrapper' style='display: none;'>
+                <input class='col_id' type=hidden value='${column_id}'>
+                <div class='input-area-wrapper'>
+                    <input class='card-input-title' type='text' name='card-title' placeholder='Title'>
+                    <textarea class='card-input-content' name='card-content'></textarea>
+                </div>
+                <div class='input-files-wrapper'>
+                    <input type='file' name='new-todo-files' multiple>
+                </div>
+                <div class='new-todo-btns'>
+                    <div class='add-btn'>Add</div>
+                    <div class='cancel-btn'>Cancel</div>
+                </div>
+            </div>
+        `);
     }
 
     cardRender(cardsData) {
