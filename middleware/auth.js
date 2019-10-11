@@ -3,7 +3,7 @@ const { findAuthByUserIdProjectId, findProjectById } = require("../models/query_
 
 module.exports = {
     onlyPublic(req, res, next) {
-        if (req.user) res.redirect("/todo");
+        if (req.user) res.redirect("/project");
         else next();
     },
     onlyPrivate(req, res, next) {
