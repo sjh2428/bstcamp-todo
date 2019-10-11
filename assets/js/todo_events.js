@@ -150,6 +150,7 @@ module.exports = class extends Observer {
                 </div>
                 <div class='card-menu-btn'>&hellip;</div>
             </div>` + colMain.innerHTML;
+            newTodoWrapper.style.display = "none";
             this.initCards();
         });
     }
