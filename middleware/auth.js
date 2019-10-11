@@ -38,7 +38,7 @@ module.exports = {
     },
     async doYouHaveRWAuth(req, res, next) {
         const { user_id } = req.user;
-        const { project_id } = req.body;
+        const { project_id } = req.query;
         const params = [ user_id, project_id ];
         const [ sqlRes ] = await sqlQuery(findAuthByUserIdProjectId, params);
         if (sqlRes.authority === 2) next();

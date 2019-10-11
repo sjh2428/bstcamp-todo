@@ -26,18 +26,20 @@ module.exports = class extends TodoEvents {
     blockAddingNewCardRender(column_id) {
         return (/*html*/`
             <div class='new-todo-wrapper' style='display: none;'>
-                <input class='col_id' type=hidden value='${column_id}'>
-                <div class='input-area-wrapper'>
-                    <input class='card-input-title' type='text' name='card-title' placeholder='Title'>
-                    <textarea class='card-input-content' name='card-content'></textarea>
-                </div>
-                <div class='input-files-wrapper'>
-                    <input type='file' name='new-todo-files' multiple>
-                </div>
-                <div class='new-todo-btns'>
-                    <div class='add-btn'>Add</div>
-                    <div class='cancel-btn'>Cancel</div>
-                </div>
+                <form action='/api/cards' method='POST' enctype='multipart/form-data'>
+                    <div class='input-area-wrapper'>
+                        <input class='col_id' type=hidden value='${column_id}'>
+                        <input class='card-input-title' type='text' name='card-title' placeholder='Title'>
+                        <textarea class='card-input-content' name='card-content'></textarea>
+                    </div>
+                    <div class='input-files-wrapper'>
+                        <input class='new-todo-files' type='file' name='new-todo-files' multiple>
+                    </div>
+                    <div class='new-todo-btns'>
+                        <div class='add-btn'>Add</div>
+                        <div class='cancel-btn'>Cancel</div>
+                    </div>
+                </form>
             </div>
         `);
     }

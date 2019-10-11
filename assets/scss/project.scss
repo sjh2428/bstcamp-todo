@@ -79,6 +79,11 @@ main {
                 }
             }
             .new-todo-wrapper {
+                z-index: 1;
+                width: $column-width;
+                position: absolute;
+                background-color: #F9FAFB;
+                border-radius: $border-radius-px;
                 .input-area-wrapper {
                     display: flex;
                     flex-direction: column;

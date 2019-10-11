@@ -1,6 +1,7 @@
 const $ = (selector, base = document) => base.querySelector(selector);
 const $$ = (selector, base = document) => base.querySelectorAll(selector);
 const Observer = require('./observer');
+const { fetchGet, fetchPost } = require('./fetch_util');
 
 module.exports = class extends Observer {
     constructor() {
@@ -125,10 +126,34 @@ module.exports = class extends Observer {
         this.updateColumnAndCardIdx();
     }
 
-    cardAddBtnHandler(e) {
+    cardShowBtnHandler(e) {
         const { nextElementSibling } = e.target.parentElement.parentElement;
         if (nextElementSibling.style.display === "block") nextElementSibling.style.display = "none";
         else nextElementSibling.style.display = "block";
+    }
+
+    cardAddBtnHandler(e) {
+        const newTodoWrapper = e.target.parentElement.parentElement.parentElement;
+        const column_id = $('input.col_id', newTodoWrapper).value;
+        const card_title = $('input.card-input-title', newTodoWrapper).value;
+        const card_contents = $('textarea', newTodoWrapper).value;
+        // const files = $('input.new-todo-files', newTodoWrapper).value;
+        fetchPost('/api/cards?project_id=1', { column_id, card_title, card_contents }).then(res => {
+            const colMain = newTodoWrapper.nextElementSibling;
+            const card_idx = $$('.card-wrapper', colMain).length;
+            colMain.innerHTML = 
+            `<div class='card-wrapper' draggable="true" card-idx='${card_idx}' card-id='${res.insertId}'>
+                <div class='card-icon'>📑</div>
+                <div class='card-main-wrapper'>
+                    <div class='card-title'>${card_title}</div>
+                    <div class='card-who'>Added By <span class='card-who-name'>${res.user_id}</span></div>
+                </div>
+                <div class='card-menu-btn'>&hellip;</div>
+            </div>` + colMain.innerHTML;
+            $(`.card-wrapper[card-idx='${card_idx}']`, colMain).addEventListener('dragstart', (e) => this.columnWrapperDragStartHandler(e));
+            $(`.card-wrapper[card-idx='${card_idx}']`, colMain).addEventListener('dragover', (e) => e.preventDefault());
+            $(`.card-wrapper[card-idx='${card_idx}']`, colMain).addEventListener('dragend', (e) => this.columnWrapperDragEndHandler(e));
+        });
     }
 
     initColumns() {
@@ -149,10 +174,13 @@ module.exports = class extends Observer {
 
     initColBtns() {
         $$('.column-add-btn').forEach(addBtn => {
-            addBtn.addEventListener('click', (e) => this.cardAddBtnHandler(e));
+            addBtn.addEventListener('click', (e) => this.cardShowBtnHandler(e));
         });
         $$('.cancel-btn').forEach(cancelBtn => {
-            cancelBtn.addEventListener('click', (e) => e.target.parentElement.parentElement.style.display='none');
+            cancelBtn.addEventListener('click', (e) => e.target.parentElement.parentElement.parentElement.style.display='none');
+        });
+        $$('.add-btn').forEach(addBtn => {
+            addBtn.addEventListener('click', (e) => this.cardAddBtnHandler(e));
         });
     }
 }

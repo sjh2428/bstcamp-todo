@@ -100,7 +100,7 @@ module.exports = {
     insertProject: "insert into tbl_project(project_name, project_idx, created_by) values(?, ?, ?);",
     findProjectById: "select * from tbl_project where project_id=?;",
     findProjectsByUserId: "select project_id, project_name, project_idx, created_by from tbl_project where created_by=? order by project_idx asc;",
-    findAuthByUserIdProjectId: "select authority from tbl_auth where user_id=? and project_id=?;",
+    findAuthByUserIdProjectId: "select * from tbl_auth where user_id=? and project_id=?;",
     updateProjectById: "update tbl_project set project_name=?, project_idx=? where project_id=?;",
     deleteProjectById: "delete from tbl_project where project_id=?;"
 };

@@ -11,16 +11,19 @@ module.exports = {
         try {
             await sqlQuery(incAllCardIdx);
             const sqlRes = await sqlQuery(insertCard, params);
-            for (const file of req.files) {
-                const { originalname, buffer, mimetype } = file;
-                const params = [ sqlRes.insertId, mimetype, originalname ];
-                await upload2ncloud(originalname, buffer);
-                await sqlQuery(insertCardFile, params);
+            if (req.files !== undefined) {
+                for (const file of req.files) {
+                    const { originalname, buffer, mimetype } = file;
+                    const params = [ sqlRes.insertId, mimetype, originalname ];
+                    await upload2ncloud(originalname, buffer);
+                    await sqlQuery(insertCardFile, params);
+                }
             }
             statusCode = 201;
-            res.status(statusCode).res.json(sqlRes);
+            res.status(statusCode).json({ insertId: sqlRes.insertId, user_id });
         } catch(err) {
             statusCode = 500;
+            console.log(err);
             res.status(statusCode);
             res.end();
         }
