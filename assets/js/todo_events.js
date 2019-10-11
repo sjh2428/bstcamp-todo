@@ -150,9 +150,7 @@ module.exports = class extends Observer {
                 </div>
                 <div class='card-menu-btn'>&hellip;</div>
             </div>` + colMain.innerHTML;
-            $(`.card-wrapper[card-idx='${card_idx}']`, colMain).addEventListener('dragstart', (e) => this.columnWrapperDragStartHandler(e));
-            $(`.card-wrapper[card-idx='${card_idx}']`, colMain).addEventListener('dragover', (e) => e.preventDefault());
-            $(`.card-wrapper[card-idx='${card_idx}']`, colMain).addEventListener('dragend', (e) => this.columnWrapperDragEndHandler(e));
+            this.initCards();
         });
     }
 
