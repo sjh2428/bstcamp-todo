@@ -16,14 +16,14 @@ module.exports = class extends TodoEvents {
                         <div class='column-menu-btn'>&hellip;</div>
                     </div>
                 </div>
-                ${this.newTodoRender(colData.column_id)}
+                ${this.blockAddingNewCardRender(colData.column_id)}
                 <div class='column-main'>
                     ${this.cardRender(colData.cards)}
                 </div>
             </li>`, '');
     }
 
-    newTodoRender(column_id) {
+    blockAddingNewCardRender(column_id) {
         return (/*html*/`
             <div class='new-todo-wrapper' style='display: none;'>
                 <input class='col_id' type=hidden value='${column_id}'>
