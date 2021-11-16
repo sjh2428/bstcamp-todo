@@ -9,7 +9,7 @@
   "dependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.6.0",
     "@babel/polyfill": "^7.6.0",
-    "aws-sdk": "^2.348.0",
+    "aws-sdk": "^2.814.0",
     "buffer-to-stream": "^1.0.0",
     "connect-flash": "^0.1.1",
     "connect-redis": "^4.0.2",
